@@ -78,7 +78,7 @@ const schema = [
       <nav class="breadcrumb" aria-label="Você está em">
         <a href="/">Início</a> <span aria-hidden="true">/</span> <span>Terapia inclusiva LGBTQIA+</span>
       </nav>
-      <p class="eyebrow">Psicólogo em Campo Grande · presencial e online</p>
+      <p class="eyebrow">Psicólogo em Campo Grande, presencial e online</p>
       <h1>Terapia inclusiva de gênero e LGBTQIA+ em Campo Grande</h1>
       <p class="lead">
         Um consultório onde você não precisa se explicar nem se esconder. Atendimento respeitoso a
@@ -92,21 +92,21 @@ const schema = [
     </div>
   </section>
 
-  <section id="compromissos" class="section section--alt">
+  <section id="compromissos" class="section section--lilas">
     <div class="wrap">
-      <h2>O que significa um atendimento inclusivo</h2>
+      <h2>Aqui ninguém precisa se explicar.</h2>
       <p class="lead">
         Não faço distinção de gênero: como psicólogo, estou aqui para ajudar todas as pessoas.
         Na prática, isso se traduz em alguns compromissos:
       </p>
-      <div class="cards-2">
+      <dl class="compromissos">
         {compromissos.map((c) => (
-          <article class="card">
-            <h3>{c.titulo}</h3>
-            <p>{c.texto}</p>
-          </article>
+          <div>
+            <dt>{c.titulo}</dt>
+            <dd>{c.texto}</dd>
+          </div>
         ))}
-      </div>
+      </dl>
     </div>
   </section>
 
@@ -125,7 +125,7 @@ const schema = [
     </div>
   </section>
 
-  <section class="section section--alt">
+  <section class="section section--lilas">
     <div class="wrap prose-wide">
       <h2>Abordagem: TCC e terapia narrativa</h2>
       <p>
@@ -151,7 +151,7 @@ const schema = [
           Psicólogo clínico ({SITE.crp}), formado pela UCDB e atendendo em Campo Grande desde 2011,
           com consultório no {SITE.bairro} e atendimento online para todo o Brasil.
         </p>
-        <p><a href="/#sobre">Conheça a trajetória completa →</a></p>
+        <p><a href="/#sobre">Conheça a trajetória completa</a></p>
       </div>
       <div>
         <h2 class="h3">Dúvidas frequentes</h2>
@@ -160,12 +160,8 @@ const schema = [
     </div>
   </section>
 
-  <section class="section section--tight">
-    <div class="wrap">
-      <CtaAgenda
-        titulo="Um espaço seguro para ser quem você é"
-        msgWhatsapp="Olá, Marcel! Gostaria de saber mais sobre o atendimento."
-      />
-    </div>
-  </section>
+  <CtaAgenda
+    titulo="Um espaço seguro para ser quem você é"
+    msgWhatsapp="Olá, Marcel! Gostaria de saber mais sobre o atendimento."
+  />
 </Base>

@@ -15,16 +15,18 @@ const { itens } = Astro.props;
 </div>
 
 <style>
-  .faq__list details { border-bottom: 1px solid var(--line); }
+  .faq__list { border-top: 2px solid var(--tinta); }
+  .faq__list details { border-bottom: 1px solid var(--linha); }
   .faq__list summary {
-    cursor: pointer; list-style: none; padding: 1.3rem 2.5rem 1.3rem 0; position: relative;
-    font-weight: 600; font-size: 1.05rem;
+    cursor: pointer; list-style: none; padding: 1.3rem 3rem 1.3rem 0; position: relative;
+    font-family: var(--display); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.015em;
   }
   .faq__list summary::-webkit-details-marker { display: none; }
   .faq__list summary::after {
-    content: '+'; position: absolute; right: 0.3rem; top: 50%; transform: translateY(-50%);
-    font-size: 1.6rem; font-weight: 300; color: var(--accent); transition: transform 0.2s;
+    content: ''; position: absolute; right: 0.4rem; top: 50%; width: 14px; height: 14px;
+    border-right: 3px solid var(--ipe-escuro); border-bottom: 3px solid var(--ipe-escuro);
+    transform: translateY(-70%) rotate(45deg); transition: transform 0.2s;
   }
-  .faq__list details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
-  .faq__list details p { color: var(--ink-soft); padding-bottom: 1.2rem; margin: 0; }
+  .faq__list details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .faq__list details p { color: var(--tinta-suave); padding-bottom: 1.4rem; margin: 0; max-width: 40rem; }
 </style>

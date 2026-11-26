@@ -1,11 +1,12 @@
 ---
 import { SITE } from '../config';
 import { getCollection } from 'astro:content';
+import Logo from './Logo.astro';
 
 const temPosts = (await getCollection('blog', ({ data }) => !data.rascunho)).length > 0;
 const links = [
   { href: '/#sobre', label: 'Sobre' },
-  { href: '/#atendimento', label: 'Atendimento' },
+  { href: '/#atendimento', label: 'Atendimentos' },
   { href: '/terapia-de-casal-campo-grande/', label: 'Terapia de casal' },
   { href: '/psicologo-lgbt-campo-grande/', label: 'Terapia inclusiva' },
   ...(temPosts ? [{ href: '/blog/', label: 'Blog' }] : []),
@@ -14,9 +15,9 @@ const links = [
 ---
 <header class="header">
   <div class="wrap header__inner">
-    <a href="/" class="logo" aria-label={`${SITE.marca} — página inicial`}>
-      <img src="/favicon.svg" width="44" height="44" alt="" />
-      <span class="logo__text"><span class="logo__mundo">Mundo</span><span class="logo__humano">Humano</span></span>
+    <a href="/" class="logo" aria-label={`${SITE.marca}, página inicial`}>
+      <Logo size={42} />
+      <span class="logo__text">Mundo<br />Humano</span>
     </a>
 
     <nav aria-label="Principal">
@@ -25,9 +26,7 @@ const links = [
         <li><a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a></li>
       </ul>
       <details class="menu">
-        <summary aria-label="Abrir menu">
-          <span></span><span></span><span></span>
-        </summary>
+        <summary aria-label="Abrir menu">Menu</summary>
         <ul>
           {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
           <li class="menu__cta">
@@ -40,47 +39,42 @@ const links = [
 </header>
 
 <script>
-  // Fecha o menu mobile ao clicar em um link
   document.querySelectorAll<HTMLAnchorElement>('.menu a').forEach((a) =>
     a.addEventListener('click', () => a.closest('details')?.removeAttribute('open')),
   );
 </script>
 
 <style>
-  .header {
-    position: sticky; top: 0; z-index: 50;
-    background: rgb(247 242 234 / 0.88);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .header__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-  .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
-  .logo__text { display: flex; flex-direction: column; line-height: 1; font-family: var(--sans); font-size: 1.15rem; font-weight: 500; letter-spacing: -0.01em; }
-  .logo__mundo { color: var(--logo-blue-text); }
-  .logo__humano { color: var(--ink); margin-top: 0.1rem; }
+  .header { position: sticky; top: 0; z-index: 50; background: var(--cobalto); color: #fff; }
+  .header__inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: #fff; }
+  .logo__text { font-family: var(--display); font-weight: 700; font-size: 1.02rem; line-height: 0.98; letter-spacing: -0.01em; }
+  .logo:hover { color: var(--caninde); }
 
   .menu summary {
-    list-style: none; cursor: pointer; width: 44px; height: 44px;
-    display: grid; place-content: center; gap: 5px;
+    list-style: none; cursor: pointer; min-height: 44px; padding: 0.5rem 1.1rem;
+    border: 2px solid #fff; border-radius: 999px; font-family: var(--display); font-weight: 700;
   }
   .menu summary::-webkit-details-marker { display: none; }
-  .menu summary span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
+  .menu[open] summary { background: #fff; color: var(--cobalto); }
   .menu ul {
-    list-style: none; margin: 0; padding: 1rem 1.25rem 1.5rem;
-    position: absolute; left: 0; right: 0; top: 72px;
-    background: var(--bg); border-bottom: 1px solid var(--line);
-    display: grid; gap: 0.25rem;
+    list-style: none; margin: 0; padding: 1rem var(--gutter) 1.8rem;
+    position: absolute; left: 0; right: 0; top: 76px;
+    background: var(--cobalto); display: grid; gap: 0;
   }
-  .menu li a:not(.btn) { display: block; padding: 0.7rem 0; color: var(--ink); text-decoration: none; font-weight: 500; }
-  .menu__cta { margin-top: 0.5rem; }
+  .menu li a:not(.btn) {
+    display: block; padding: 0.8rem 0; color: #fff; text-decoration: none;
+    font-family: var(--display); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.02em;
+    border-bottom: 1px solid rgb(255 255 255 / 0.15);
+  }
+  .menu__cta { margin-top: 1.2rem; }
 
   .nav-desktop { display: none; }
-  @media (min-width: 900px) {
+  @media (min-width: 1040px) {
     .menu { display: none; }
-    .nav-desktop { display: flex; align-items: center; gap: 1.8rem; list-style: none; margin: 0; padding: 0; }
-    .nav-desktop a:not(.btn) { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
-    .nav-desktop a:not(.btn):hover { color: var(--accent); }
-    .nav-desktop .btn { padding: 0.65rem 1.2rem; }
+    .nav-desktop { display: flex; align-items: center; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
+    .nav-desktop a:not(.btn) { color: #fff; text-decoration: none; font-weight: 600; font-size: 0.98rem; }
+    .nav-desktop a:not(.btn):hover { color: var(--caninde); }
+    .nav-desktop .btn { min-height: 44px; padding: 0.55rem 1.2rem; }
   }
 </style>
-
