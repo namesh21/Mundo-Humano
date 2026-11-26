@@ -6,9 +6,9 @@ const ano = new Date().getFullYear();
 <footer class="footer">
   <div class="wrap footer__grid">
     <div class="footer__marca">
-      <Logo size={56} />
+      <Logo size={48} />
       <p class="footer__nome">Mundo Humano</p>
-      <p>{SITE.profissional}, psicólogo clínico<br />{SITE.crp}</p>
+      <p>{SITE.profissional}<br />Psicólogo clínico, {SITE.crp}</p>
       <p><a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro}, {SITE.cidade}/{SITE.uf}</a></p>
     </div>
     <div>
@@ -33,25 +33,25 @@ const ano = new Date().getFullYear();
       <p class="footer__titulo">Em crise agora?</p>
       <p>
         Este site não faz atendimento de urgência. Se você está em sofrimento intenso, ligue para o
-        <strong>CVV, 188</strong> (24h, gratuito) ou para o <strong>SAMU, 192</strong>.
+        CVV, <strong>188</strong> (24h, gratuito), ou para o SAMU, <strong>192</strong>.
       </p>
     </div>
   </div>
   <div class="wrap footer__fim">
-    <p>© {ano} Mundo Humano, {SITE.profissional}</p>
+    <p>© {ano} Mundo Humano, {SITE.profissional}. Psicólogo inscrito no Conselho Regional de Psicologia da 14ª Região (MS).</p>
   </div>
 </footer>
 
 <style>
-  .footer { background: var(--tinta); color: #c9c6e0; padding: clamp(4rem, 8vw, 5.5rem) 0 1.5rem; font-size: 0.97rem; }
-  .footer a { color: #fff; text-decoration-color: rgb(255 255 255 / 0.35); }
-  .footer a:hover { color: var(--ipe); }
-  .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
-  .footer__grid { display: grid; gap: 2.5rem; }
-  .footer__nome { font-family: var(--display); font-weight: 800; font-size: 1.7rem; letter-spacing: -0.03em; color: #fff; margin: 1rem 0 0.6rem; }
-  .footer__titulo { font-family: var(--display); font-weight: 700; color: var(--caninde); margin-bottom: 0.8rem; }
-  .footer__crise { border-left: 3px solid var(--ipe); padding-left: 1.1rem; align-self: start; }
-  .footer__fim { margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid rgb(255 255 255 / 0.12); color: #8a87ab; font-size: 0.88rem; }
+  .footer { background: #1b1c18; color: #a59e90; padding: clamp(4rem, 8vw, 6rem) 0 1.6rem; font-size: 0.95rem; }
+  .footer a { color: var(--marfim); text-decoration-color: rgb(243 239 231 / 0.3); }
+  .footer a:hover { color: var(--ouro-claro); }
+  .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .footer__grid { display: grid; gap: 2.8rem; }
+  .footer__nome { font-family: var(--serif); font-size: 1.8rem; color: var(--marfim); margin: 1rem 0 0.6rem; }
+  .footer__titulo { color: var(--ouro); font-weight: 600; font-size: 0.86rem; letter-spacing: 0.04em; margin-bottom: 1rem; }
+  .footer__crise { border-left: 1px solid var(--ipe); padding-left: 1.2rem; align-self: start; }
+  .footer__fim { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--linha-escura); font-size: 0.85rem; color: #7d776b; }
   .footer__fim p { margin: 0; }
-  @media (min-width: 900px) { .footer__grid { grid-template-columns: 1.1fr 1fr 1fr 1.1fr; gap: 3rem; } }
+  @media (min-width: 900px) { .footer__grid { grid-template-columns: 1.1fr 1fr 1fr 1.1fr; gap: 3.5rem; } }
 </style>

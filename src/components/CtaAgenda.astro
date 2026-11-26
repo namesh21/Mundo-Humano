@@ -6,36 +6,34 @@ interface Props {
   msgWhatsapp?: string;
 }
 const {
-  titulo = 'Marque a sua primeira conversa.',
+  titulo = 'Se fizer sentido para você, podemos começar por uma conversa.',
   texto = 'Os horários livres e os valores estão na agenda online. Presencial em Campo Grande ou online.',
   msgWhatsapp,
 } = Astro.props;
 ---
 <aside class="cta-agenda">
   <div class="wrap cta-agenda__grid">
+    <h2>{titulo}</h2>
     <div>
-      <h2>{titulo}</h2>
       <p>{texto}</p>
+      <div class="cta-agenda__acoes">
+        <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
+        <a class="link-sec" href={whatsappLink(msgWhatsapp)} target="_blank" rel="noopener">Prefiro conversar no WhatsApp</a>
+      </div>
       <p class="cta-agenda__url">
         Agenda online: <a href={SITE.agenda} target="_blank" rel="noopener">{SITE.agenda.replace('https://', '')}</a>
       </p>
-    </div>
-    <div class="cta-agenda__btns">
-      <a class="btn btn--tinta" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
-      <a class="btn btn--ghost" href={whatsappLink(msgWhatsapp)} target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 </aside>
 
 <style>
-  .cta-agenda { background: var(--caninde); color: var(--tinta); padding: clamp(3.5rem, 8vw, 6rem) 0; }
-  .cta-agenda__grid { display: grid; gap: 2rem; align-items: end; }
-  .cta-agenda h2 { font-size: clamp(2.2rem, 5.5vw, 4rem); font-weight: 800; letter-spacing: -0.04em; max-width: 14ch; }
-  .cta-agenda p { font-size: 1.1rem; margin-bottom: 0.6rem; }
-  .cta-agenda__url { font-size: 0.95rem !important; word-break: break-all; }
-  .cta-agenda a:not(.btn) { color: var(--tinta); }
-  .cta-agenda__btns { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-  .btn--tinta { background: var(--tinta); color: #fff; }
-  .btn--tinta:hover { background: var(--cobalto); color: #fff; }
-  @media (min-width: 900px) { .cta-agenda__grid { grid-template-columns: 1.6fr 1fr; } .cta-agenda__btns { justify-content: flex-end; } }
+  .cta-agenda { background: var(--oliva); color: var(--marfim); padding: clamp(5rem, 10vw, 8rem) 0; }
+  .cta-agenda__grid { display: grid; gap: 2.5rem; align-items: end; }
+  .cta-agenda h2 { font-size: clamp(2.2rem, 4.6vw, 3.8rem); max-width: 18ch; margin: 0; }
+  .cta-agenda p { color: var(--texto-claro); }
+  .cta-agenda__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin: 1.8rem 0; }
+  .cta-agenda__url { font-size: 0.9rem; word-break: break-all; color: #9d968a !important; }
+  .cta-agenda__url a { color: var(--texto-claro); }
+  @media (min-width: 900px) { .cta-agenda__grid { grid-template-columns: 1.4fr 1fr; gap: 6rem; } }
 </style>

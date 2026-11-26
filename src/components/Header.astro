@@ -6,18 +6,21 @@ import Logo from './Logo.astro';
 const temPosts = (await getCollection('blog', ({ data }) => !data.rascunho)).length > 0;
 const links = [
   { href: '/#sobre', label: 'Sobre' },
-  { href: '/#atendimento', label: 'Atendimentos' },
+  { href: '/#abordagem', label: 'Abordagem' },
   { href: '/terapia-de-casal-campo-grande/', label: 'Terapia de casal' },
   { href: '/psicologo-lgbt-campo-grande/', label: 'Terapia inclusiva' },
-  ...(temPosts ? [{ href: '/blog/', label: 'Blog' }] : []),
+  ...(temPosts ? [{ href: '/blog/', label: 'Artigos' }] : []),
   { href: '/#contato', label: 'Contato' },
 ];
 ---
 <header class="header">
   <div class="wrap header__inner">
-    <a href="/" class="logo" aria-label={`${SITE.marca}, página inicial`}>
-      <Logo size={42} />
-      <span class="logo__text">Mundo<br />Humano</span>
+    <a href="/" class="marca" aria-label={`${SITE.marca}, página inicial`}>
+      <Logo size={40} />
+      <span class="marca__texto">
+        <span class="marca__nome">Mundo Humano</span>
+        <span class="marca__id">{SITE.profissional}, psicólogo clínico</span>
+      </span>
     </a>
 
     <nav aria-label="Principal">
@@ -26,7 +29,7 @@ const links = [
         <li><a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a></li>
       </ul>
       <details class="menu">
-        <summary aria-label="Abrir menu">Menu</summary>
+        <summary aria-label="Abrir menu"><span></span><span></span></summary>
         <ul>
           {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
           <li class="menu__cta">
@@ -45,36 +48,36 @@ const links = [
 </script>
 
 <style>
-  .header { position: sticky; top: 0; z-index: 50; background: var(--cobalto); color: #fff; }
-  .header__inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-  .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: #fff; }
-  .logo__text { font-family: var(--display); font-weight: 700; font-size: 1.02rem; line-height: 0.98; letter-spacing: -0.01em; }
-  .logo:hover { color: var(--caninde); }
+  .header { position: sticky; top: 0; z-index: 50; background: var(--oliva); color: var(--marfim); border-bottom: 1px solid var(--linha-escura); }
+  .header__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+  .marca { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; color: var(--marfim); }
+  .marca__texto { display: grid; line-height: 1.15; }
+  .marca__nome { font-family: var(--serif); font-size: 1.35rem; }
+  .marca__id { font-size: 0.78rem; color: #a59e90; letter-spacing: 0.02em; }
+  .marca:hover .marca__nome { color: var(--ouro-claro); }
 
-  .menu summary {
-    list-style: none; cursor: pointer; min-height: 44px; padding: 0.5rem 1.1rem;
-    border: 2px solid #fff; border-radius: 999px; font-family: var(--display); font-weight: 700;
-  }
+  .menu summary { list-style: none; cursor: pointer; width: 44px; height: 44px; display: grid; place-content: center; gap: 7px; }
   .menu summary::-webkit-details-marker { display: none; }
-  .menu[open] summary { background: #fff; color: var(--cobalto); }
+  .menu summary span { display: block; width: 24px; height: 1.5px; background: var(--marfim); transition: transform 0.2s; }
+  .menu[open] summary span:first-child { transform: translateY(4.25px) rotate(45deg); }
+  .menu[open] summary span:last-child { transform: translateY(-4.25px) rotate(-45deg); }
   .menu ul {
-    list-style: none; margin: 0; padding: 1rem var(--gutter) 1.8rem;
-    position: absolute; left: 0; right: 0; top: 76px;
-    background: var(--cobalto); display: grid; gap: 0;
+    list-style: none; margin: 0; padding: 1rem var(--gutter) 2rem;
+    position: absolute; left: 0; right: 0; top: 80px;
+    background: var(--oliva); border-bottom: 1px solid var(--linha-escura);
   }
   .menu li a:not(.btn) {
-    display: block; padding: 0.8rem 0; color: #fff; text-decoration: none;
-    font-family: var(--display); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.02em;
-    border-bottom: 1px solid rgb(255 255 255 / 0.15);
+    display: block; padding: 0.85rem 0; color: var(--marfim); text-decoration: none;
+    font-family: var(--serif); font-size: 1.7rem; border-bottom: 1px solid var(--linha-escura);
   }
-  .menu__cta { margin-top: 1.2rem; }
+  .menu__cta { margin-top: 1.5rem; }
 
   .nav-desktop { display: none; }
-  @media (min-width: 1040px) {
+  @media (min-width: 1080px) {
     .menu { display: none; }
-    .nav-desktop { display: flex; align-items: center; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
-    .nav-desktop a:not(.btn) { color: #fff; text-decoration: none; font-weight: 600; font-size: 0.98rem; }
-    .nav-desktop a:not(.btn):hover { color: var(--caninde); }
-    .nav-desktop .btn { min-height: 44px; padding: 0.55rem 1.2rem; }
+    .nav-desktop { display: flex; align-items: center; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+    .nav-desktop a:not(.btn) { color: var(--marfim); text-decoration: none; font-size: 0.93rem; font-weight: 500; }
+    .nav-desktop a:not(.btn):hover { color: var(--ouro-claro); }
+    .nav-desktop .btn { min-height: 44px; padding: 0.6rem 1.3rem; }
   }
 </style>
