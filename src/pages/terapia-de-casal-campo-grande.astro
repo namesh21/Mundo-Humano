@@ -1,0 +1,157 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import CtaAgenda from '../components/CtaAgenda.astro';
+import { SITE } from '../config';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../seo';
+
+const path = '/terapia-de-casal-campo-grande/';
+const descricao =
+  'Terapia de casal em Campo Grande/MS com o psicólogo Marcel Paulino (CRP 14/05302-8). Presencial no Jardim Bela Vista e online. Agende sua consulta.';
+
+const sinais = [
+  'As brigas são sempre sobre o mesmo assunto e nunca se resolvem',
+  'Conversar virou discutir, ou vocês simplesmente pararam de conversar',
+  'A confiança foi abalada por uma traição ou por mentiras',
+  'Ciúme, cobranças e insegurança estão desgastando a relação',
+  'A chegada de filhos, uma mudança ou o trabalho afastaram vocês',
+  'Conflitos com a família de origem de um dos dois',
+  'Vocês estão diante de uma decisão difícil, inclusive a de se separar',
+  'A intimidade e o afeto diminuíram e ninguém sabe como retomar',
+];
+
+const faq = [
+  {
+    p: 'Os dois precisam querer fazer terapia de casal?',
+    r: 'O ideal é que os dois participem. Quando apenas um está disposto, é possível começar pela psicoterapia individual, olhando para o seu lugar na relação, e avaliar mais adiante a entrada do parceiro ou parceira.',
+  },
+  {
+    p: 'A terapia de casal serve para salvar o relacionamento?',
+    r: 'O objetivo é ajudar o casal a entender o que está acontecendo e a decidir com mais clareza. Muitos casais se reaproximam; outros concluem que o melhor é seguir caminhos diferentes, e a terapia ajuda a fazer isso com respeito, principalmente quando há filhos.',
+  },
+  {
+    p: 'Como funcionam as sessões de terapia de casal?',
+    r: 'As sessões são feitas com o casal junto. Nas primeiras, entendemos a história de vocês e o que motivou a procura, e definimos objetivos em conjunto. Quando faz sentido, pode haver sessões individuais combinadas com os dois.',
+  },
+  {
+    p: 'Posso fazer terapia de casal online?',
+    r: 'Sim. A terapia de casal online funciona bem, inclusive para casais que moram em cidades diferentes ou têm rotinas difíceis de conciliar. Basta um lugar reservado onde os dois possam falar à vontade.',
+  },
+  {
+    p: 'Vocês atendem casais LGBTQIA+?',
+    r: 'Sim. O atendimento é inclusivo e respeitoso com todos os casais, independentemente de orientação sexual ou identidade de gênero.',
+  },
+  {
+    p: 'Quanto custa a terapia de casal?',
+    r: `Os valores e os horários disponíveis ficam na agenda online. As formas de pagamento são ${SITE.pagamento.toLowerCase()}.`,
+  },
+];
+
+const schema = [
+  breadcrumbSchema(Astro.site!, [{ nome: 'Terapia de casal', path }]),
+  serviceSchema(Astro.site!, 'Terapia de casal', descricao, path),
+  faqSchema(faq),
+];
+---
+<Base
+  seoTitle="Terapia de Casal em Campo Grande (MS) | Marcel Paulino"
+  description={descricao}
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="Você está em">
+        <a href="/">Início</a> <span aria-hidden="true">/</span> <span>Terapia de casal</span>
+      </nav>
+      <p class="eyebrow">Psicólogo em Campo Grande · presencial e online</p>
+      <h1>Terapia de casal em Campo Grande</h1>
+      <p class="lead">
+        Um espaço neutro para o casal falar do que trava a relação, entender os padrões que se
+        repetem e encontrar outras formas de conviver, com escuta sem julgamento e sem tomar partido.
+      </p>
+      <div class="page-hero__ctas">
+        <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar terapia de casal</a>
+        <a class="btn btn--ghost" href="#como-funciona">Como funciona</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap duas-col">
+      <div>
+        <h2>Quando procurar terapia de casal?</h2>
+        <p>
+          Não é preciso esperar a relação estar por um fio. Quanto antes o casal busca ajuda, mais
+          fácil é mudar padrões que ainda não se cristalizaram. Alguns sinais comuns:
+        </p>
+      </div>
+      <ul class="lista-check">
+        {sinais.map((s) => <li>{s}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="section">
+    <div class="wrap prose-wide">
+      <h2>Como funciona a terapia de casal</h2>
+      <p>
+        Na terapia de casal, o "paciente" é a relação. Meu papel não é decidir quem tem razão, mas
+        ajudar vocês dois a se escutarem de verdade e a perceber o que acontece entre vocês quando
+        o conflito começa.
+      </p>
+      <h3>Terapia cognitivo-comportamental aplicada ao casal</h3>
+      <p>
+        Com a TCC, identificamos pensamentos automáticos e comportamentos que alimentam as brigas,
+        como interpretações apressadas, cobranças e silêncios, e treinamos formas mais claras de
+        comunicação e de resolução de problemas no dia a dia.
+      </p>
+      <h3>Terapia narrativa: a história que o casal conta</h3>
+      <p>
+        A terapia narrativa olha para a história que cada um conta sobre o relacionamento. Uma ideia
+        central é separar o problema das pessoas: em vez de "você é ciumento" ou "você é frio", o
+        casal passa a enxergar o ciúme ou o distanciamento como algo que atrapalha os dois, e pode
+        enfrentá-lo junto.
+      </p>
+      <h3>Presencial ou online</h3>
+      <p>
+        As sessões presenciais acontecem no consultório no {SITE.bairro}, em Campo Grande, às terças,
+        quintas, sextas e sábados. A terapia de casal online está disponível de segunda a sábado e é
+        uma boa opção para quem tem rotinas corridas ou mora em cidades diferentes.
+      </p>
+      <h3>Para todos os casais</h3>
+      <p>
+        Atendo casais heterossexuais e LGBTQIA+, casados, namorando ou em processo de separação.
+        Saiba mais sobre o meu <a href="/psicologo-lgbt-campo-grande/">atendimento inclusivo de gênero e LGBTQIA+</a>.
+        Quando a questão envolve filhos e outros familiares, a <a href="/#atendimento">terapia familiar</a> também pode ajudar.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap duas-col">
+      <div>
+        <p class="eyebrow">Quem atende</p>
+        <h2>{SITE.profissional}</h2>
+        <p>
+          Psicólogo clínico ({SITE.crp}), formado pela UCDB, atendendo em Campo Grande desde 2011.
+          Atuou na Clínica Logus com terapia de casal e familiar e, de 2012 a 2020, como voluntário no
+          Instituto KMC, atendendo famílias encaminhadas pela rede de proteção.
+        </p>
+        <p><a href="/#sobre">Conheça a trajetória completa →</a></p>
+      </div>
+      <div>
+        <h2 class="h3">Dúvidas frequentes sobre terapia de casal</h2>
+        <Faq itens={faq} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <CtaAgenda
+        titulo="Agende a primeira sessão de terapia de casal"
+        msgWhatsapp="Olá, Marcel! Gostaria de saber mais sobre a terapia de casal."
+      />
+    </div>
+  </section>
+</Base>

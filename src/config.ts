@@ -3,7 +3,7 @@ export const SITE = {
   marca: 'Mundo Humano',
   slogan: 'Psicólogo em Campo Grande',
   descricao:
-    'Marcel Paulino, psicólogo clínico em Campo Grande/MS. Psicoterapia individual, de casal e familiar, aconselhamento breve, orientação vocacional e avaliação psicológica, com TCC e terapia narrativa. Presencial no Jardim Bela Vista e online.',
+    'Psicólogo em Campo Grande/MS, Marcel Paulino (CRP 14/05302-8): terapia individual, de casal e familiar e atendimento inclusivo LGBTQIA+. Presencial e online.',
   profissional: 'Marcel Paulino',
   crp: 'CRP 14/05302-8',
   cidade: 'Campo Grande',

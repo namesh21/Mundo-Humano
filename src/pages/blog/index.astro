@@ -6,7 +6,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.rascunho)).sort(
   (a, b) => b.data.data.valueOf() - a.data.data.valueOf(),
 );
 ---
-<Base title="Blog" description="Textos sobre saúde emocional, relacionamentos e o processo terapêutico.">
+<Base title="Blog" noindex={posts.length === 0} description="Textos sobre saúde emocional, relacionamentos e o processo terapêutico.">
   <section class="section">
     <div class="wrap">
       <p class="eyebrow">Blog</p>

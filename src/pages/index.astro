@@ -4,6 +4,8 @@ import { Image } from 'astro:assets';
 import { SITE, whatsappLink, telefoneFormatado } from '../config';
 import { getCollection } from 'astro:content';
 import foto from '../assets/marcel-paulino.webp';
+import Faq from '../components/Faq.astro';
+import { faqSchema } from '../seo';
 
 const posts = (await getCollection('blog', ({ data }) => !data.rascunho))
   .sort((a, b) => b.data.data.valueOf() - a.data.data.valueOf())
@@ -17,6 +19,7 @@ const atendimentos = [
   {
     titulo: 'Terapia de casal',
     texto: 'Um espaço para o casal olhar para a comunicação, os conflitos e os padrões que se repetem na relação, com ajuda de alguém de fora.',
+    link: '/terapia-de-casal-campo-grande/',
   },
   {
     titulo: 'Terapia familiar',
@@ -115,13 +118,15 @@ const faq = [
   },
 ];
 ---
-<Base>
+<Base schema={[faqSchema(faq)]}>
   <!-- HERO -->
   <section class="hero">
     <div class="wrap hero__grid">
       <div>
-        <p class="eyebrow">{SITE.slogan} · presencial e online</p>
-        <h1>Você é o <em>especialista</em> da sua vida.</h1>
+        <h1>
+          <span class="h1-kicker">Psicólogo em Campo Grande – MS · presencial e online</span>
+          Você é o <em>especialista</em> da sua vida.
+        </h1>
         <p class="lead">
           Um espaço seguro e acolhedor para explorar seus desafios e alcançar seu potencial.
           Terapia para adultos, adolescentes, casais e famílias, sem julgamentos e sem dizer o
@@ -244,8 +249,9 @@ const faq = [
       <div class="cards">
         {atendimentos.map((a) => (
           <article class="card">
-            <h3>{a.titulo}</h3>
+            <h3>{a.link ? <a href={a.link}>{a.titulo}</a> : a.titulo}</h3>
             <p>{a.texto}</p>
+            {a.link && <a class="card__mais" href={a.link} aria-hidden="true" tabindex="-1">Saiba mais →</a>}
           </article>
         ))}
       </div>
@@ -261,11 +267,12 @@ const faq = [
       </div>
 
       <div class="inclusivo">
-        <h3>Atendimento inclusivo, sem distinção</h3>
+        <h3>Atendimento inclusivo, sem distinção de gênero</h3>
         <p>
           Acredito na importância de um atendimento inclusivo e respeitoso. Atendo todas as pessoas,
           independentemente de identidade de gênero, orientação sexual, idade ou história de vida.
         </p>
+        <a class="card__mais" href="/psicologo-lgbt-campo-grande/">Conheça o atendimento inclusivo e LGBTQIA+ →</a>
       </div>
     </div>
   </section>
@@ -295,14 +302,7 @@ const faq = [
         <p class="eyebrow">Dúvidas frequentes</p>
         <h2>Perguntas que muita gente faz antes de começar</h2>
       </div>
-      <div class="faq__list">
-        {faq.map((f) => (
-          <details>
-            <summary>{f.p}</summary>
-            <p>{f.r}</p>
-          </details>
-        ))}
-      </div>
+      <Faq itens={faq} />
     </div>
   </section>
 
@@ -358,6 +358,10 @@ const faq = [
       </div>
       <dl class="contato__info">
         <div><dt>WhatsApp / Telefone</dt><dd><a href={whatsappLink()} target="_blank" rel="noopener">{telefoneFormatado()}</a></dd></div>
+        <div>
+          <dt>Agenda online</dt>
+          <dd><a href={SITE.agenda} target="_blank" rel="noopener" class="quebra">{SITE.agenda.replace('https://', '')}</a></dd>
+        </div>
         <div><dt>E-mail</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
         <div>
           <dt>Consultório</dt>
@@ -382,6 +386,10 @@ const faq = [
 <style>
   .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 7vw, 5rem); }
   .hero__grid { display: grid; gap: 3rem; align-items: center; }
+  .h1-kicker {
+    display: block; font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 1.1rem;
+  }
   .hero h1 em { font-style: italic; color: var(--accent); }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 2rem 0 1.5rem; }
   .hero__meta { font-size: 0.9rem; color: var(--ink-soft); }
@@ -431,6 +439,11 @@ const faq = [
   }
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .card p { color: var(--ink-soft); margin: 0; }
+  .card h3 a { color: inherit; text-decoration: none; }
+  .card h3 a::after { content: ''; position: absolute; inset: 0; }
+  .card { position: relative; }
+  .card__mais { display: inline-block; margin-top: 0.9rem; font-weight: 600; font-size: 0.92rem; text-decoration: none; }
+  .quebra { word-break: break-all; }
   @media (min-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1050px) { .cards { grid-template-columns: repeat(4, 1fr); } }
 
@@ -463,18 +476,6 @@ const faq = [
   @media (min-width: 800px) { .passos { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
 
   .faq { display: grid; gap: 2rem; }
-  .faq__list details { border-bottom: 1px solid var(--line); }
-  .faq__list summary {
-    cursor: pointer; list-style: none; padding: 1.3rem 2.5rem 1.3rem 0; position: relative;
-    font-weight: 600; font-size: 1.05rem;
-  }
-  .faq__list summary::-webkit-details-marker { display: none; }
-  .faq__list summary::after {
-    content: '+'; position: absolute; right: 0.3rem; top: 50%; transform: translateY(-50%);
-    font-size: 1.6rem; font-weight: 300; color: var(--accent); transition: transform 0.2s;
-  }
-  .faq__list details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
-  .faq__list details p { color: var(--ink-soft); padding-bottom: 1.2rem; margin: 0; }
   @media (min-width: 900px) { .faq { grid-template-columns: 1fr 1.6fr; gap: 5rem; } }
 
   .blog-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; }

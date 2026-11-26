@@ -5,8 +5,9 @@ import { getCollection } from 'astro:content';
 const temPosts = (await getCollection('blog', ({ data }) => !data.rascunho)).length > 0;
 const links = [
   { href: '/#sobre', label: 'Sobre' },
-  { href: '/#abordagem', label: 'Abordagem' },
   { href: '/#atendimento', label: 'Atendimento' },
+  { href: '/terapia-de-casal-campo-grande/', label: 'Terapia de casal' },
+  { href: '/psicologo-lgbt-campo-grande/', label: 'Terapia inclusiva' },
   ...(temPosts ? [{ href: '/blog/', label: 'Blog' }] : []),
   { href: '/#contato', label: 'Contato' },
 ];

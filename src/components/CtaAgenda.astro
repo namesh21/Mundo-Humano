@@ -1,0 +1,41 @@
+---
+import { SITE, whatsappLink } from '../config';
+interface Props {
+  titulo?: string;
+  texto?: string;
+  msgWhatsapp?: string;
+}
+const {
+  titulo = 'Vamos dar o primeiro passo?',
+  texto = 'Veja os horários livres e os valores na agenda online e marque sua consulta, presencial em Campo Grande ou online.',
+  msgWhatsapp,
+} = Astro.props;
+---
+<aside class="cta-agenda">
+  <div>
+    <h2>{titulo}</h2>
+    <p>{texto}</p>
+    <p class="cta-agenda__url">
+      Agenda online: <a href={SITE.agenda} target="_blank" rel="noopener">{SITE.agenda.replace('https://', '')}</a>
+    </p>
+  </div>
+  <div class="cta-agenda__btns">
+    <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
+    <a class="btn btn--ghost-light" href={whatsappLink(msgWhatsapp)} target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </div>
+</aside>
+
+<style>
+  .cta-agenda {
+    background: var(--green); color: #eef3f8; border-radius: var(--radius);
+    padding: clamp(2rem, 5vw, 3.2rem); display: grid; gap: 1.8rem; align-items: center;
+  }
+  .cta-agenda h2 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+  .cta-agenda p { color: #d6e2ee; margin-bottom: 0.6rem; }
+  .cta-agenda__url { font-size: 0.9rem; word-break: break-all; }
+  .cta-agenda__url a { color: #f3d3c6; }
+  .cta-agenda__btns { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .btn--ghost-light { border-color: #fff; color: #fff; }
+  .btn--ghost-light:hover { background: #fff; color: var(--green); }
+  @media (min-width: 900px) { .cta-agenda { grid-template-columns: 1.5fr 1fr; } .cta-agenda__btns { justify-content: flex-end; } }
+</style>

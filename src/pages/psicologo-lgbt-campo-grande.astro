@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import CtaAgenda from '../components/CtaAgenda.astro';
+import { SITE } from '../config';
+import { faqSchema, breadcrumbSchema, serviceSchema } from '../seo';
+
+const path = '/psicologo-lgbt-campo-grande/';
+const descricao =
+  'Psicólogo LGBTQIA+ em Campo Grande/MS: terapia inclusiva de gênero, sem julgamentos, com Marcel Paulino (CRP 14/05302-8). Presencial e online.';
+
+const temas = [
+  'Autoaceitação e construção da própria identidade',
+  'Contar para a família, amigos ou no trabalho',
+  'Desafios sociais e familiares na transição de gênero',
+  'Preconceito, discriminação e violência vividos no dia a dia',
+  'Ansiedade, tristeza e estresse ligados a essas experiências',
+  'Relacionamentos e terapia de casal LGBTQIA+',
+  'Famílias que querem acolher e apoiar um filho ou filha LGBTQIA+',
+  'Qualquer outra questão da vida, que não precisa ter relação com gênero ou orientação',
+];
+
+const compromissos = [
+  {
+    titulo: 'Seu nome e seus pronomes',
+    texto: 'Você é tratado pelo nome e pelos pronomes que usa, desde o primeiro contato.',
+  },
+  {
+    titulo: 'Identidade não é sintoma',
+    texto: 'Orientação sexual e identidade de gênero não são tratadas como problema a ser corrigido. O foco é o que causa sofrimento a você.',
+  },
+  {
+    titulo: 'Sem julgamento',
+    texto: 'Você fala da sua vida, dos seus vínculos e da sua sexualidade sem precisar se justificar ou explicar o básico.',
+  },
+  {
+    titulo: 'Sigilo garantido',
+    texto: 'Tudo o que é dito em sessão é protegido pelo sigilo profissional, inclusive diante da família.',
+  },
+];
+
+const faq = [
+  {
+    p: 'Preciso falar sobre minha orientação ou identidade de gênero na terapia?',
+    r: 'Não. Você traz o que quiser. Muitas pessoas LGBTQIA+ procuram terapia por questões como trabalho, ansiedade ou luto, e o que buscam é apenas um espaço onde não precisem se esconder.',
+  },
+  {
+    p: 'Vou ser chamado pelo meu nome social?',
+    r: 'Sim. O nome e os pronomes que você usa são respeitados em todo o atendimento, desde o primeiro contato.',
+  },
+  {
+    p: 'Você atende pessoas trans e não binárias?',
+    r: 'Sim. O atendimento é aberto a pessoas de todas as identidades de gênero e orientações sexuais, adolescentes e adultas.',
+  },
+  {
+    p: 'O que diz o Conselho Federal de Psicologia sobre isso?',
+    r: 'As Resoluções CFP nº 01/1999 e nº 01/2018 proíbem psicólogos de tratar a homossexualidade e as identidades trans como doença ou de oferecer qualquer tipo de "cura" ou conversão. Um atendimento ético é, necessariamente, um atendimento que respeita quem você é.',
+  },
+  {
+    p: 'Posso fazer a terapia online?',
+    r: 'Sim, de segunda a sábado. O atendimento online pode ser uma boa opção para quem prefere mais privacidade ou mora fora de Campo Grande.',
+  },
+];
+
+const schema = [
+  breadcrumbSchema(Astro.site!, [{ nome: 'Terapia inclusiva LGBTQIA+', path }]),
+  serviceSchema(Astro.site!, 'Psicoterapia inclusiva de gênero e LGBTQIA+', descricao, path),
+  faqSchema(faq),
+];
+---
+<Base
+  seoTitle="Terapia Inclusiva de Gênero e Psicólogo LGBT em Campo Grande"
+  description={descricao}
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="Você está em">
+        <a href="/">Início</a> <span aria-hidden="true">/</span> <span>Terapia inclusiva LGBTQIA+</span>
+      </nav>
+      <p class="eyebrow">Psicólogo em Campo Grande · presencial e online</p>
+      <h1>Terapia inclusiva de gênero e LGBTQIA+ em Campo Grande</h1>
+      <p class="lead">
+        Um consultório onde você não precisa se explicar nem se esconder. Atendimento respeitoso a
+        todas as pessoas, independentemente de identidade de gênero, orientação sexual, idade ou
+        história de vida.
+      </p>
+      <div class="page-hero__ctas">
+        <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
+        <a class="btn btn--ghost" href="#compromissos">Como é o atendimento</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="compromissos" class="section section--alt">
+    <div class="wrap">
+      <h2>O que significa um atendimento inclusivo</h2>
+      <p class="lead">
+        Não faço distinção de gênero: como psicólogo, estou aqui para ajudar todas as pessoas.
+        Na prática, isso se traduz em alguns compromissos:
+      </p>
+      <div class="cards-2">
+        {compromissos.map((c) => (
+          <article class="card">
+            <h3>{c.titulo}</h3>
+            <p>{c.texto}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap duas-col">
+      <div>
+        <h2>O que pode ser trabalhado na terapia</h2>
+        <p>
+          Viver em um ambiente que nem sempre acolhe a diversidade pode pesar. A terapia é um espaço
+          para cuidar disso, e também de tudo o mais que faz parte da sua vida.
+        </p>
+      </div>
+      <ul class="lista-check">
+        {temas.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap prose-wide">
+      <h2>Abordagem: TCC e terapia narrativa</h2>
+      <p>
+        A <strong>terapia cognitivo-comportamental</strong> ajuda a lidar com a ansiedade, a autocrítica
+        e os pensamentos que muitas vezes vêm de anos ouvindo que havia algo de errado com você.
+        A <strong>terapia narrativa</strong> parte da ideia de que a pessoa não é o problema: ela ajuda
+        a questionar as histórias que os outros contaram sobre você e a escrever a sua própria.
+      </p>
+      <p>
+        O atendimento vale também para <a href="/terapia-de-casal-campo-grande/">casais LGBTQIA+</a> e
+        para famílias que querem entender e apoiar melhor quem amam, por meio da{' '}
+        <a href="/#atendimento">terapia familiar</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap duas-col">
+      <div>
+        <p class="eyebrow">Quem atende</p>
+        <h2>{SITE.profissional}</h2>
+        <p>
+          Psicólogo clínico ({SITE.crp}), formado pela UCDB e atendendo em Campo Grande desde 2011,
+          com consultório no {SITE.bairro} e atendimento online para todo o Brasil.
+        </p>
+        <p><a href="/#sobre">Conheça a trajetória completa →</a></p>
+      </div>
+      <div>
+        <h2 class="h3">Dúvidas frequentes</h2>
+        <Faq itens={faq} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <CtaAgenda
+        titulo="Um espaço seguro para ser quem você é"
+        msgWhatsapp="Olá, Marcel! Gostaria de saber mais sobre o atendimento."
+      />
+    </div>
+  </section>
+</Base>

@@ -6,25 +6,34 @@ import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import { SITE } from '../config';
 
 interface Props {
+  /** Título exato da aba/SERP. Se omitido, usa `title | marca`. */
+  seoTitle?: string;
   title?: string;
   description?: string;
+  noindex?: boolean;
   type?: 'website' | 'article';
+  /** Blocos JSON-LD extras da página (FAQPage, BreadcrumbList, Service...) */
+  schema?: Record<string, unknown>[];
 }
 
-const { title, description = SITE.descricao, type = 'website' } = Astro.props;
-const fullTitle = title
-  ? `${title} | ${SITE.marca}`
-  : `${SITE.profissional}, psicólogo em ${SITE.cidade}/${SITE.uf} | ${SITE.marca}`;
+const { seoTitle, title, noindex = false, description = SITE.descricao, type = 'website', schema = [] } = Astro.props;
+const fullTitle = seoTitle ?? (title ? `${title} | ${SITE.marca}` : `Psicólogo em Campo Grande (MS) | ${SITE.profissional}`);
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
 
-const schema = {
+const negocio = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: SITE.marca,
+  '@type': ['ProfessionalService', 'MedicalBusiness'],
+  '@id': new URL('/#consultorio', Astro.site).href,
+  name: `${SITE.marca} · ${SITE.profissional}, psicólogo`,
   description: SITE.descricao,
   url: Astro.site?.href,
   logo: new URL('/favicon.svg', Astro.site).href,
+  image: ogImage.href,
+  email: SITE.email,
   telephone: `+${SITE.whatsapp}`,
+  priceRange: '$$',
+  paymentAccepted: SITE.pagamento,
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${SITE.endereco}, ${SITE.bairro}`,
@@ -32,18 +41,36 @@ const schema = {
     addressRegion: SITE.uf,
     addressCountry: 'BR',
   },
-  employee: {
+  hasMap: SITE.mapa,
+  areaServed: [
+    { '@type': 'City', name: 'Campo Grande, MS' },
+    { '@type': 'Country', name: 'Brasil' },
+  ],
+  knowsAbout: [
+    'Psicoterapia',
+    'Terapia de casal',
+    'Terapia familiar',
+    'Terapia cognitivo-comportamental',
+    'Terapia narrativa',
+    'Atendimento psicológico LGBTQIA+',
+    'Orientação vocacional',
+    'Avaliação psicológica',
+  ],
+  potentialAction: {
+    '@type': 'ReserveAction',
+    name: 'Agendar consulta',
+    target: { '@type': 'EntryPoint', urlTemplate: SITE.agenda },
+  },
+  sameAs: [SITE.linkedin],
+  founder: {
     '@type': 'Person',
+    '@id': new URL('/#marcel', Astro.site).href,
     name: SITE.profissional,
     jobTitle: 'Psicólogo Clínico',
     identifier: SITE.crp,
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidade Católica Dom Bosco' },
     sameAs: [SITE.linkedin],
   },
-  email: SITE.email,
-  sameAs: [SITE.linkedin],
-  areaServed: SITE.cidade,
-  hasMap: SITE.mapa,
 };
 ---
 <!doctype html>
@@ -54,9 +81,12 @@ const schema = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#f7f2ea" />
+    <meta name="geo.region" content="BR-MS" />
+    <meta name="geo.placename" content="Campo Grande" />
 
     <meta property="og:type" content={type} />
     <meta property="og:locale" content="pt_BR" />
@@ -64,9 +94,13 @@ const schema = {
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(negocio)} />
+    {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...s })} />)}
   </head>
   <body>
     <a class="skip" href="#conteudo">Pular para o conteúdo</a>

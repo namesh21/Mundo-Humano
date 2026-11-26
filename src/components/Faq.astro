@@ -1,0 +1,30 @@
+---
+// Lista de perguntas frequentes. A página gera o schema FAQPage com `faqSchema()`.
+interface Props {
+  itens: { p: string; r: string }[];
+}
+const { itens } = Astro.props;
+---
+<div class="faq__list">
+  {itens.map((f) => (
+    <details>
+      <summary>{f.p}</summary>
+      <p>{f.r}</p>
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq__list details { border-bottom: 1px solid var(--line); }
+  .faq__list summary {
+    cursor: pointer; list-style: none; padding: 1.3rem 2.5rem 1.3rem 0; position: relative;
+    font-weight: 600; font-size: 1.05rem;
+  }
+  .faq__list summary::-webkit-details-marker { display: none; }
+  .faq__list summary::after {
+    content: '+'; position: absolute; right: 0.3rem; top: 50%; transform: translateY(-50%);
+    font-size: 1.6rem; font-weight: 300; color: var(--accent); transition: transform 0.2s;
+  }
+  .faq__list details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+  .faq__list details p { color: var(--ink-soft); padding-bottom: 1.2rem; margin: 0; }
+</style>
