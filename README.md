@@ -41,6 +41,16 @@ rascunho: false
 - Botão flutuante de WhatsApp e aviso de crise (CVV 188 / SAMU 192) no rodapé
 - Sem depoimentos de pacientes nem promessa de resultado, seguindo as orientações do CFP sobre publicidade
 
-## Publicação
+## Publicação (Vercel)
 
-Funciona em qualquer hospedagem estática (Vercel, Netlify, Cloudflare Pages). Comando de build `npm run build`, pasta de saída `dist`.
+- Framework: Astro · Build: `npm run build` · Saída: `dist` (já definido em `vercel.json`)
+- **Node 22.23+** (exigido pelo Astro 7). Em *Project Settings → Build and Deployment → Node.js Version*, use 22.x ou 24.x.
+- Domínio: `www.mundohumano.com.br` como principal; `mundohumano.com.br` redireciona para o www (regra em `vercel.json`).
+
+## Páginas e palavras-chave
+
+| URL | Palavra-chave principal |
+|---|---|
+| `/` | psicólogo em Campo Grande |
+| `/terapia-de-casal-campo-grande/` | terapia de casal Campo Grande |
+| `/psicologo-lgbt-campo-grande/` | terapia inclusiva de gênero / psicólogo LGBT |

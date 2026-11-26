@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "mundohumano.com.br" }], "destination": "https://www.mundohumano.com.br/$1", "permanent": true }
+  ]
+}
