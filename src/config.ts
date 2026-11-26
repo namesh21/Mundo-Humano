@@ -3,7 +3,7 @@ export const SITE = {
   marca: 'Mundo Humano',
   slogan: 'Psicólogo em Campo Grande',
   descricao:
-    'Marcel Paulino, psicólogo em Campo Grande/MS. Terapia cognitivo-comportamental para adultos, adolescentes e casais, presencial no Jardim Bela Vista e online.',
+    'Marcel Paulino, psicólogo clínico em Campo Grande/MS. Psicoterapia individual, de casal e familiar e aconselhamento breve, com TCC e terapia narrativa. Presencial no Jardim Bela Vista e online.',
   profissional: 'Marcel Paulino',
   crp: 'CRP 14/05302-8',
   cidade: 'Campo Grande',
@@ -14,6 +14,9 @@ export const SITE = {
   // Somente números, com DDI e DDD
   whatsapp: '5567981671304',
   agenda: 'https://client.tuaagenda.com/c/MarcelPsicologo',
+  pagamento: 'Dinheiro, Pix, cartão de crédito e débito',
+  // Confirmar com o Marcel se as parcerias continuam ativas
+  parceiros: ['UFMS', 'Revitalize'],
   horarios: {
     presencial: 'Terça, quinta, sexta e sábado',
     online: 'Segunda a sábado',

@@ -19,12 +19,16 @@ const atendimentos = [
     texto: 'Um espaço para o casal olhar para a comunicação, os conflitos e os padrões que se repetem na relação, com ajuda de alguém de fora.',
   },
   {
-    titulo: 'Famílias',
+    titulo: 'Terapia familiar',
     texto: 'Atendimento para famílias que querem melhorar a convivência, a comunicação e atravessar juntas momentos difíceis.',
   },
   {
+    titulo: 'Aconselhamento breve',
+    texto: 'Um acompanhamento focado e de curta duração para momentos de crise: perdas, separações, mudanças bruscas e decisões difíceis.',
+  },
+  {
     titulo: 'Atendimento online',
-    texto: 'Sessões por vídeo de segunda a sábado, com o mesmo cuidado e sigilo do presencial, para quem está em qualquer cidade.',
+    texto: 'Sessões por vídeo de segunda a sábado, conforme as normas do CFP e do CRP-14/MS, com o mesmo cuidado e sigilo do presencial.',
   },
 ];
 
@@ -50,6 +54,10 @@ const faq = [
     r: 'Pela agenda online você vê os horários livres, os valores e agenda direto, sem precisar esperar resposta. Se tiver dúvidas antes, é só chamar no WhatsApp.',
   },
   {
+    p: 'Quais são as formas de pagamento?',
+    r: 'Dinheiro, Pix e cartão de crédito ou débito. Os valores das sessões ficam disponíveis na agenda online.',
+  },
+  {
     p: 'Preciso estar em crise para começar a terapia?',
     r: 'Não. Muita gente procura terapia para se conhecer melhor, atravessar uma fase de mudança ou entender padrões que se repetem. Você é o especialista da sua vida, e a terapia é uma ferramenta para construir esse caminho.',
   },
@@ -63,7 +71,7 @@ const faq = [
   },
   {
     p: 'Quanto tempo dura o tratamento?',
-    r: 'A terapia cognitivo-comportamental costuma trabalhar com objetivos definidos em conjunto, mas a duração varia de pessoa para pessoa. Vamos avaliando juntos como o processo está caminhando.',
+    r: 'Depende do que te traz e do formato escolhido. O aconselhamento breve tem duração curta e focada; a psicoterapia trabalha com objetivos definidos em conjunto, e vamos avaliando juntos como o processo está caminhando.',
   },
 ];
 ---
@@ -130,7 +138,7 @@ const faq = [
         </p>
         <ul class="destaques">
           <li><strong>12+ anos</strong><span>de atuação clínica</span></li>
-          <li><strong>TCC</strong><span>terapia cognitivo-comportamental</span></li>
+          <li><strong>TCC + Narrativa</strong><span>abordagens terapêuticas</span></li>
           <li><strong>{SITE.crp}</strong><span>psicólogo clínico</span></li>
         </ul>
       </div>
@@ -142,7 +150,7 @@ const faq = [
     <div class="wrap abordagem">
       <div>
         <p class="eyebrow">Abordagem</p>
-        <h2>Terapia cognitivo-comportamental</h2>
+        <h2>Terapia cognitivo-comportamental e terapia narrativa</h2>
       </div>
       <div>
         <p class="lead">
@@ -152,6 +160,11 @@ const faq = [
         <p>
           Trabalhamos juntos para identificar pensamentos disfuncionais e padrões de comportamento,
           desenvolver estratégias para lidar com eles e promover mudanças positivas na sua vida.
+        </p>
+        <p>
+          A terapia narrativa complementa esse trabalho olhando para as histórias que contamos sobre
+          nós mesmos. Separar a pessoa do problema abre espaço para reescrever essas histórias e
+          reconhecer os próprios recursos, porque quem conhece a sua vida é você.
         </p>
         <p>
           Cada pessoa é única, e o atendimento é personalizado para as suas necessidades, seja
@@ -257,6 +270,16 @@ const faq = [
     </section>
   )}
 
+  <!-- PARCEIROS -->
+  <section class="parceiros" aria-label="Parceiros">
+    <div class="wrap parceiros__inner">
+      <p class="eyebrow">Parceiros</p>
+      <ul>
+        {SITE.parceiros.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+  </section>
+
   <!-- CONTATO -->
   <section id="contato" class="section">
     <div class="wrap contato">
@@ -287,6 +310,7 @@ const faq = [
             {SITE.horarios.domingo}
           </dd>
         </div>
+        <div><dt>Pagamento</dt><dd>{SITE.pagamento}</dd></div>
       </dl>
     </div>
   </section>
@@ -309,10 +333,10 @@ const faq = [
   }
   .destaques {
     list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     border-top: 1px solid var(--line); padding-top: 1.5rem;
   }
-  .destaques strong { display: block; font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: var(--green); }
+  .destaques strong { display: block; white-space: nowrap; font-family: var(--serif); font-size: 1.35rem; font-weight: 500; color: var(--green); }
   .destaques span { font-size: 0.88rem; color: var(--ink-soft); }
   @media (min-width: 900px) { .sobre { grid-template-columns: 0.85fr 1.15fr; gap: 5rem; } }
 
@@ -330,7 +354,7 @@ const faq = [
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .card p { color: var(--ink-soft); margin: 0; }
   @media (min-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1050px) { .cards { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 1050px) { .cards { grid-template-columns: repeat(3, 1fr); } }
 
   .temas {
     display: grid; gap: 1.5rem; margin-top: 4rem; padding: 2.2rem;
@@ -386,6 +410,12 @@ const faq = [
   .post h3 { margin: 0.5rem 0; }
   .post p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
   @media (min-width: 800px) { .posts { grid-template-columns: repeat(3, 1fr); } }
+
+  .parceiros { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 2rem 0; }
+  .parceiros__inner { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 3rem; }
+  .parceiros .eyebrow { margin: 0; }
+  .parceiros ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem 3rem; }
+  .parceiros li { font-family: var(--serif); font-size: 1.4rem; color: var(--ink-soft); }
 
   .contato { display: grid; gap: 3rem; }
   .contato .hero__ctas { margin-bottom: 0; }
