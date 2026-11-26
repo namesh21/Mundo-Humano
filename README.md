@@ -2,8 +2,6 @@
 
 Site do psicólogo Marcel Paulino (Campo Grande/MS), feito com [Astro](https://astro.build). Conteúdo migrado do antigo Google Sites em www.mundohumano.com.br.
 
-> **Pendente:** preencher o número do CRP em `src/config.ts` (obrigatório pelo CFP).
-
 ## Rodar localmente
 
 ```bash

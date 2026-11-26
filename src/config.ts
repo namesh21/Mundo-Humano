@@ -5,8 +5,7 @@ export const SITE = {
   descricao:
     'Marcel Paulino, psicólogo em Campo Grande/MS. Terapia cognitivo-comportamental para adultos, adolescentes e casais, presencial no Jardim Bela Vista e online.',
   profissional: 'Marcel Paulino',
-  // TODO: preencher com o número do CRP (obrigatório pelo Código de Ética do CFP)
-  crp: 'CRP 14/00000',
+  crp: 'CRP 14/05302-8',
   cidade: 'Campo Grande',
   uf: 'MS',
   endereco: 'Rua Patagônia, 443B – Sala 3',
