@@ -1,57 +1,57 @@
 ---
 import { SITE, telefoneFormatado, whatsappLink } from '../config';
+import Logo from './Logo.astro';
 const ano = new Date().getFullYear();
 ---
 <footer class="footer">
   <div class="wrap footer__grid">
-    <div>
-      <p class="footer__brand"><img src="/favicon.svg" width="40" height="40" alt="" />{SITE.marca}</p>
-      <p>{SITE.profissional} · Psicólogo clínico · {SITE.crp}</p>
-      <p class="muted">
-        <a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro} · {SITE.cidade}/{SITE.uf}</a>
-      </p>
+    <div class="footer__marca">
+      <Logo size={48} />
+      <p class="footer__nome">Mundo Humano</p>
+      <p>{SITE.profissional}<br />Psicólogo clínico, {SITE.crp}</p>
+      <p><a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro}, {SITE.cidade}/{SITE.uf}</a></p>
     </div>
     <div>
-      <p class="footer__title">Contato</p>
-      <p>
-        <a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp {telefoneFormatado()}</a><br />
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
-        <a href={SITE.agenda} target="_blank" rel="noopener">Agenda online</a><br />
-        <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a>
-      </p>
+      <p class="footer__titulo">Atendimentos</p>
+      <ul>
+        <li><a href="/terapia-de-casal-campo-grande/">Terapia de casal em Campo Grande</a></li>
+        <li><a href="/psicologo-lgbt-campo-grande/">Psicólogo LGBTQIA+ e terapia inclusiva</a></li>
+        <li><a href="/#atendimento">Psicoterapia individual e familiar</a></li>
+        <li><a href="/#atendimento">Atendimento online</a></li>
+      </ul>
     </div>
     <div>
-      <p class="footer__title">Atendimentos</p>
-      <p>
-        <a href="/terapia-de-casal-campo-grande/">Terapia de casal em Campo Grande</a><br />
-        <a href="/psicologo-lgbt-campo-grande/">Psicólogo LGBTQIA+ e terapia inclusiva</a><br />
-        <a href="/#atendimento">Psicoterapia individual e familiar</a><br />
-        <a href="/#atendimento">Atendimento online</a>
-      </p>
+      <p class="footer__titulo">Contato</p>
+      <ul>
+        <li><a href={SITE.agenda} target="_blank" rel="noopener">Agenda online</a></li>
+        <li><a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp {telefoneFormatado()}</a></li>
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li><a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
     </div>
-    <div class="footer__notice">
-      <p class="footer__title">Em situação de crise</p>
+    <div class="footer__crise">
+      <p class="footer__titulo">Em crise agora?</p>
       <p>
-        Este site não oferece atendimento de urgência. Se você estiver em sofrimento intenso,
-        ligue para o <strong>CVV — 188</strong> (24h, gratuito) ou procure o <strong>SAMU — 192</strong>.
+        Este site não faz atendimento de urgência. Se você está em sofrimento intenso, ligue para o
+        CVV, <strong>188</strong> (24h, gratuito), ou para o SAMU, <strong>192</strong>.
       </p>
     </div>
   </div>
-  <div class="wrap footer__bottom">
-    <p>© {ano} {SITE.marca} · {SITE.profissional}. Todos os direitos reservados.</p>
+  <div class="wrap footer__fim">
+    <p>© {ano} Mundo Humano, {SITE.profissional}. Psicólogo inscrito no Conselho Regional de Psicologia da 14ª Região (MS).</p>
   </div>
 </footer>
 
 <style>
-  .footer { background: var(--ink); color: #d9d0c3; padding: 4rem 0 1.5rem; font-size: 0.95rem; }
-  .footer a { color: #f3d3c6; }
-  .muted a { color: #a99f92; }
-  .footer__grid { display: grid; gap: 2.5rem; }
-  .footer__brand { display: flex; align-items: center; gap: 0.7rem; font-family: var(--serif); font-size: 1.6rem; color: #fff; margin-bottom: 0.8rem; }
-  .footer__title { color: #fff; font-weight: 600; margin-bottom: 0.6rem; }
-  .muted { color: #a99f92; }
-  .footer__notice { border-left: 2px solid var(--accent); padding-left: 1rem; }
-  .footer__bottom { border-top: 1px solid #443d36; margin-top: 3rem; padding-top: 1.5rem; color: #a99f92; font-size: 0.85rem; }
-  .footer__bottom p { margin: 0; }
-  @media (min-width: 800px) { .footer__grid { grid-template-columns: 1.1fr 1fr 1.1fr 1.2fr; } }
+  .footer { background: #1b1c18; color: #a59e90; padding: clamp(4rem, 8vw, 6rem) 0 1.6rem; font-size: 0.95rem; }
+  .footer a { color: var(--marfim); text-decoration-color: rgb(243 239 231 / 0.3); }
+  .footer a:hover { color: var(--ouro-claro); }
+  .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .footer__grid { display: grid; gap: 2.8rem; }
+  .footer__nome { font-family: var(--serif); font-size: 1.8rem; color: var(--marfim); margin: 1rem 0 0.6rem; }
+  .footer__titulo { color: var(--ouro); font-weight: 600; font-size: 0.86rem; letter-spacing: 0.04em; margin-bottom: 1rem; }
+  .footer__crise { border-left: 1px solid var(--ipe); padding-left: 1.2rem; align-self: start; }
+  .footer__fim { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--linha-escura); font-size: 0.85rem; color: #7d776b; }
+  .footer__fim p { margin: 0; }
+  @media (min-width: 900px) { .footer__grid { grid-template-columns: 1.1fr 1fr 1fr 1.1fr; gap: 3.5rem; } }
 </style>

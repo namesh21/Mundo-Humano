@@ -1,0 +1,15 @@
+---
+// Ícone do Mundo Humano (mão com peça de quebra-cabeça), vetorizado do logo original.
+// Na paleta editorial: círculo dourado, mão em oliva.
+import raw from '../assets/logo-icon.svg?raw';
+interface Props { size?: number; fundo?: string; }
+const { size = 40, fundo = 'var(--ouro)' } = Astro.props;
+const svg = raw
+  .replace('<svg ', `<svg width="${size}" height="${size}" aria-hidden="true" focusable="false" `)
+  .replace(/fill="#5b8bb7"/, `fill="${fundo}"`);
+---
+<span class="logo-icon" set:html={svg} />
+<style>
+  .logo-icon { display: inline-flex; flex: none; }
+  .logo-icon :global(path) { fill: var(--oliva); }
+</style>

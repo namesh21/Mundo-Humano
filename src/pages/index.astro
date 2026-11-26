@@ -5,501 +5,462 @@ import { SITE, whatsappLink, telefoneFormatado } from '../config';
 import { getCollection } from 'astro:content';
 import foto from '../assets/marcel-paulino.webp';
 import Faq from '../components/Faq.astro';
+import CtaAgenda from '../components/CtaAgenda.astro';
 import { faqSchema } from '../seo';
 
 const posts = (await getCollection('blog', ({ data }) => !data.rascunho))
   .sort((a, b) => b.data.data.valueOf() - a.data.data.valueOf())
   .slice(0, 3);
 
-const atendimentos = [
-  {
-    titulo: 'Psicoterapia individual',
-    texto: 'Para adultos e adolescentes que querem entender o que sentem, lidar melhor com seus desafios e construir mudanças na própria vida.',
-  },
-  {
-    titulo: 'Terapia de casal',
-    texto: 'Um espaço para o casal olhar para a comunicação, os conflitos e os padrões que se repetem na relação, com ajuda de alguém de fora.',
-    link: '/terapia-de-casal-campo-grande/',
-  },
-  {
-    titulo: 'Terapia familiar',
-    texto: 'Atendimento para famílias que querem melhorar a convivência, a comunicação e atravessar juntas momentos difíceis.',
-  },
-  {
-    titulo: 'Aconselhamento breve',
-    texto: 'Um acompanhamento focado e de curta duração para momentos de crise: perdas, separações, mudanças bruscas e decisões difíceis.',
-  },
-  {
-    titulo: 'Grupo terapêutico',
-    texto: 'Grupos conduzidos com técnicas da terapia narrativa, em que as pessoas compartilham experiências e constroem novos caminhos juntas.',
-  },
-  {
-    titulo: 'Orientação vocacional e profissional',
-    texto: 'Para quem está escolhendo um curso, mudando de carreira ou repensando a vida profissional e quer decidir com mais clareza.',
-  },
-  {
-    titulo: 'Avaliação psicológica',
-    texto: 'Aplicação de testes psicológicos e avaliação de candidatos para empresas em processos seletivos, pelo projeto Mundo Humano.',
-  },
-  {
-    titulo: 'Atendimento online',
-    texto: 'Sessões por vídeo de segunda a sábado, conforme as normas do CFP e do CRP-14/MS, com o mesmo cuidado e sigilo do presencial.',
-  },
+// Hero: rótulos que a pessoa carrega e como a terapia narrativa os reescreve.
+const rotulos = [
+  { rotulo: 'o problema', reescrita: 'O problema é o problema. Você não é.' },
+  { rotulo: 'demais', reescrita: 'Disseram que você era demais. Talvez a régua é que estivesse errada.' },
+  { rotulo: 'difícil', reescrita: 'Algumas coisas estão difíceis. Isso é diferente de ser difícil.' },
+  { rotulo: 'frágil', reescrita: 'Sentir muito não é fraqueza. É informação sobre o que importa para você.' },
+  { rotulo: 'um fracasso', reescrita: 'Um plano não deu certo. É um capítulo, não o livro inteiro.' },
 ];
 
 const temas = [
-  'Ansiedade e transtornos de ansiedade',
-  'Depressão e transtornos do humor',
-  'Estresse e gerenciamento de estresse',
-  'Fobias e medos',
-  'Relacionamentos e comunicação',
-  'Autoestima e autoaceitação',
-  'Hábitos e vícios',
+  { titulo: 'Ansiedade e estresse', texto: 'Quando a cabeça não desliga, o corpo cobra e a rotina pesa mais do que deveria.' },
+  { titulo: 'Relações e conflitos', texto: 'Casais, famílias e vínculos em que as mesmas brigas e silêncios se repetem.' },
+  { titulo: 'Identidade e autoaceitação', texto: 'Gênero, sexualidade, autoestima e o direito de existir sem se explicar.' },
+  { titulo: 'Transições e decisões', texto: 'Perdas, separações, mudanças de carreira e escolhas que não dá para adiar.' },
+];
+
+const atendimentos = [
+  { titulo: 'Psicoterapia individual', texto: 'Adultos e adolescentes, presencial ou online.' },
+  { titulo: 'Terapia de casal', texto: 'Casais de todas as formações, em qualquer fase da relação.', link: '/terapia-de-casal-campo-grande/' },
+  { titulo: 'Terapia inclusiva e LGBTQIA+', texto: 'Nome, pronomes e história respeitados desde o primeiro contato.', link: '/psicologo-lgbt-campo-grande/' },
+  { titulo: 'Terapia familiar', texto: 'Para conviver melhor e atravessar juntos um momento difícil.' },
+  { titulo: 'Aconselhamento breve', texto: 'Acompanhamento curto e focado para momentos de crise.' },
+  { titulo: 'Grupo terapêutico', texto: 'Grupos conduzidos com terapia narrativa.' },
+  { titulo: 'Orientação vocacional e profissional', texto: 'Escolher um curso, mudar de carreira, repensar o trabalho.' },
+  { titulo: 'Avaliação psicológica', texto: 'Testes psicológicos e avaliação de candidatos para empresas.' },
 ];
 
 const trajetoria = [
-  {
-    periodo: '2011 — hoje',
-    titulo: 'Psicólogo clínico · Consultório particular',
-    texto: 'Psicoterapia individual, de casal e familiar, psicoterapia breve, grupos terapêuticos, orientação vocacional e avaliação psicológica.',
-  },
-  {
-    periodo: '2014 — 2018',
-    titulo: 'Psicólogo clínico · Clínica Logus',
-    texto: 'Psicoterapia breve, terapia cognitivo-comportamental e terapia narrativa com indivíduos, casais e famílias.',
-  },
-  {
-    periodo: '2013 — 2014',
-    titulo: 'Psicólogo educacional · Pestalozzi/MS',
-    texto: 'Integrante da equipe de orientação escolar.',
-  },
-  {
-    periodo: '2012 — 2020',
-    titulo: 'Psicólogo clínico voluntário · Instituto KMC',
-    texto: 'Atendimento a famílias em situação de risco e violência encaminhadas por Fórum, Ministério Público, CREAS, CRAS e Conselho Tutelar, com prática em terapia narrativa individual, de casal, familiar e em grupo.',
-  },
-  {
-    periodo: '2006 — 2011',
-    titulo: 'Graduação em Psicologia · UCDB',
-    texto: 'Universidade Católica Dom Bosco, com ênfase em psicologia clínica.',
-  },
+  { periodo: '2011 até hoje', titulo: 'Consultório particular, Campo Grande' },
+  { periodo: '2014 a 2018', titulo: 'Clínica Logus: psicoterapia breve, TCC e terapia narrativa' },
+  { periodo: '2013 a 2014', titulo: 'Pestalozzi/MS: psicólogo educacional' },
+  { periodo: '2012 a 2020', titulo: 'Instituto KMC: voluntário com famílias em situação de risco' },
+  { periodo: '2006 a 2011', titulo: 'Graduação em Psicologia, UCDB' },
 ];
 
 const passos = [
-  { n: '01', titulo: 'Escolha um horário', texto: 'Pela agenda online você vê os horários disponíveis, os valores e já agenda a sua sessão. Se preferir, chame no WhatsApp.' },
-  { n: '02', titulo: 'Primeira sessão', texto: 'Uma conversa para entender o que te traz, explicar como a terapia funciona e definirmos juntos os objetivos do processo.' },
-  { n: '03', titulo: 'Acompanhamento', texto: 'Sessões presenciais em Campo Grande ou online, no ritmo que o processo pede, com revisão constante dos objetivos.' },
+  { titulo: 'Primeiro contato', texto: 'Pela agenda online você vê os horários livres e os valores. Se tiver dúvidas antes, pode chamar no WhatsApp.' },
+  { titulo: 'Primeira sessão', texto: 'Entendemos juntos o que te trouxe, o contexto e o que você espera da terapia. Eu explico como trabalho.' },
+  { titulo: 'O processo', texto: 'Os objetivos são construídos em conjunto e revistos pelo caminho, respeitando o seu ritmo.' },
 ];
 
 const faq = [
-  {
-    p: 'Como faço para agendar?',
-    r: 'Pela agenda online você vê os horários livres, os valores e agenda direto, sem precisar esperar resposta. Se tiver dúvidas antes, é só chamar no WhatsApp.',
-  },
-  {
-    p: 'Quais são as formas de pagamento?',
-    r: 'Dinheiro, Pix e cartão de crédito ou débito. Os valores das sessões ficam disponíveis na agenda online.',
-  },
-  {
-    p: 'Preciso estar em crise para começar a terapia?',
-    r: 'Não. Muita gente procura terapia para se conhecer melhor, atravessar uma fase de mudança ou entender padrões que se repetem. Você é o especialista da sua vida, e a terapia é uma ferramenta para construir esse caminho.',
-  },
-  {
-    p: 'A terapia online funciona?',
-    r: 'Sim. O atendimento online é regulamentado pelo Conselho Federal de Psicologia e mantém o mesmo sigilo e cuidado do presencial. Basta um lugar reservado e uma boa conexão.',
-  },
-  {
-    p: 'O que eu falar fica entre nós?',
-    r: 'Sim. O sigilo é um dever ético do psicólogo, previsto no Código de Ética Profissional. As exceções são raras, previstas em lei, e sempre conversadas com você.',
-  },
-  {
-    p: 'Quanto tempo dura o tratamento?',
-    r: 'Depende do que te traz e do formato escolhido. O aconselhamento breve tem duração curta e focada; a psicoterapia trabalha com objetivos definidos em conjunto, e vamos avaliando juntos como o processo está caminhando.',
-  },
+  { p: 'Como faço para agendar?', r: 'Pela agenda online você vê os horários livres, os valores e agenda direto. Se tiver dúvidas antes, é só chamar no WhatsApp.' },
+  { p: 'O atendimento é presencial ou online?', r: 'Os dois. Presencial no consultório do Jardim Bela Vista, em Campo Grande, às terças, quintas, sextas e sábados. Online de segunda a sábado, para qualquer cidade.' },
+  { p: 'Como funciona a primeira sessão?', r: 'É uma conversa para entender o que te traz e o seu contexto. Não é preciso chegar com nada organizado. Ao final, combinamos juntos os próximos passos.' },
+  { p: 'Como funciona a confidencialidade?', r: 'O sigilo é um dever ético do psicólogo, previsto no Código de Ética Profissional. As exceções são raras, previstas em lei, e sempre conversadas com você.' },
+  { p: 'Quais são as formas de pagamento?', r: 'Dinheiro, Pix e cartão de crédito ou débito. Os valores das sessões ficam na agenda online.' },
+  { p: 'Preciso estar em crise para começar?', r: 'Não. Muita gente procura terapia para se conhecer melhor, atravessar uma mudança ou entender padrões que se repetem. Você não precisa ter todas as respostas para começar.' },
 ];
 ---
 <Base schema={[faqSchema(faq)]}>
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="titulo">
     <div class="wrap hero__grid">
-      <div>
-        <h1>
-          <span class="h1-kicker">Psicólogo em Campo Grande – MS · presencial e online</span>
-          Você é o <em>especialista</em> da sua vida.
-        </h1>
-        <p class="lead">
-          Um espaço seguro e acolhedor para explorar seus desafios e alcançar seu potencial.
-          Terapia para adultos, adolescentes, casais e famílias, sem julgamentos e sem dizer o
-          que é certo ou errado.
+      <div class="hero__principal">
+        <h1 id="titulo" class="eyebrow hero__id">Marcel Paulino, psicólogo clínico em Campo Grande</h1>
+
+        <div class="reescrita" data-reescrita>
+          <p class="reescrita__frase">
+            Eu sou <span class="riscado-linha"><span class="riscado" data-rotulo>{rotulos[0].rotulo}</span>.</span>
+          </p>
+          <p class="reescrita__nova" data-nova aria-live="polite">{rotulos[0].reescrita}</p>
+        </div>
+
+        <div class="rotulos" role="group" aria-label="Escolha um rótulo para reescrever">
+          <span class="rotulos__legenda">Outros rótulos que a gente carrega</span>
+          {rotulos.map((r, i) => (
+            <button type="button" class="chip" aria-pressed={i === 0 ? 'true' : 'false'} data-i={i}>{r.rotulo}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="hero__lado">
+        <p class="hero__proposta">
+          Psicoterapia individual, de casal e familiar com terapia narrativa e TCC.
+          Um espaço para pensar com clareza, sem julgamento e sem ninguém dizendo o que é certo.
         </p>
         <div class="hero__ctas">
           <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
-          <a class="btn btn--ghost" href={whatsappLink()} target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="link-sec" href="#abordagem">Conheça a abordagem</a>
         </div>
-        <p class="hero__meta">{SITE.profissional} · Psicólogo clínico · {SITE.crp}</p>
+        <ul class="hero__sinais">
+          <li>Sigilo profissional</li>
+          <li>Presencial e online</li>
+          <li>{SITE.crp}</li>
+        </ul>
       </div>
+    </div>
+    <script type="application/json" id="rotulos-data" set:html={JSON.stringify(rotulos)} />
+  </section>
 
-      <div class="hero__art" aria-hidden="true">
-        <svg viewBox="0 0 400 420" fill="none">
-          <rect x="30" y="20" width="340" height="380" rx="170" fill="#e2ebf3" />
-          <circle cx="200" cy="210" r="120" fill="#efe6d8" />
-          <circle cx="200" cy="210" r="120" stroke="#5b8bb7" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round" />
-          <circle cx="160" cy="190" r="56" fill="#b4573a" opacity="0.9" />
-          <circle cx="240" cy="230" r="56" fill="#5b8bb7" opacity="0.85" />
-          <path d="M70 330c60-40 120 30 180-10s80-30 100-20" stroke="#2a2622" stroke-width="2" stroke-linecap="round" />
-          <circle cx="310" cy="90" r="10" fill="#b4573a" />
-          <circle cx="92" cy="120" r="5" fill="#5b8bb7" />
-        </svg>
-      </div>
+  <!-- TEMAS -->
+  <section class="temas" aria-labelledby="temas-titulo">
+    <div class="wrap">
+      <h2 id="temas-titulo" class="temas__titulo">Quando a terapia pode ajudar</h2>
+      <ul class="temas__lista">
+        {temas.map((t) => (
+          <li>
+            <h3>{t.titulo}</h3>
+            <p>{t.texto}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
   <!-- SOBRE -->
-  <section id="sobre" class="section section--alt">
-    <div class="wrap sobre">
-      <Image
-        src={foto}
-        alt="Marcel Paulino, psicólogo em Campo Grande"
-        class="sobre__foto"
-        widths={[380, 640]}
-        sizes="(min-width: 900px) 380px, 90vw"
-      />
+  <section id="sobre" class="section sobre">
+    <div class="wrap sobre__grid">
+      <figure class="retrato">
+        <Image src={foto} alt="Marcel Paulino, psicólogo em Campo Grande" widths={[440, 660]} sizes="(min-width: 900px) 440px, 90vw" />
+        <figcaption>Marcel Paulino, {SITE.crp}</figcaption>
+      </figure>
+      <div class="sobre__texto">
+        <p class="eyebrow">Sobre</p>
+        <h2>Troquei a lógica dos números pela <em>subjetividade humana</em>.</h2>
+        <p class="lead">
+          Ouvir pessoas é uma paixão que vem da adolescência. Deixei três anos de Ciência da
+          Computação para cursar Psicologia na UCDB, e sou psicólogo clínico desde 2011.
+        </p>
+        <p>
+          Sou casado, pai da Lara e da Zoe, e dos pets Sexta-Feira e Thyka. No consultório, trabalho
+          com jovens, adultos, casais e famílias para que cada pessoa se reconheça especialista da
+          própria vida. Acredito na terapia como uma ferramenta de construção do ser, feita sem
+          julgamento.
+        </p>
+        <ol class="trajetoria" aria-label="Formação e trajetória">
+          {trajetoria.map((t) => (
+            <li><span>{t.periodo}</span>{t.titulo}</li>
+          ))}
+        </ol>
+        <a class="link-sec" href={SITE.linkedin} target="_blank" rel="noopener">Perfil completo no LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="section section--escura manifesto">
+    <div class="wrap manifesto__grid">
+      <h2>Aqui ninguém precisa <em>se explicar</em>.</h2>
       <div>
-        <p class="eyebrow">Quem sou eu</p>
-        <h2>Olá, sou {SITE.profissional}.</h2>
         <p>
-          Sou casado e pai de duas meninas, a Lara e a Zoe, e também dos pets
-          Sexta-Feira e Thyka. Minha paixão por ouvir as pessoas é natural desde a adolescência,
-          e isso só se confirmou quando decidi cursar Psicologia.
+          Atendo todas as pessoas, de qualquer identidade de gênero, orientação sexual, idade ou
+          história de vida. Seu nome e seus pronomes são respeitados desde o primeiro contato, e
+          orientação ou identidade nunca são tratadas como algo a corrigir.
         </p>
-        <p>
-          Deixei para trás três anos de Ciência da Computação e troquei a lógica dos números pela
-          subjetividade humana. Ser psicólogo é o cumprimento do meu propósito.
-        </p>
-        <p>
-          Formado em Psicologia pela UCDB, atuo como psicólogo clínico desde 2011, ajudando jovens, adultos, casais e famílias a se entenderem
-          especialistas de suas vidas. Acredito que a terapia é uma ferramenta de construção do
-          ser, fundamental para uma vida plena, e minha missão é te ajudar nesse processo.
-        </p>
-        <ul class="destaques">
-          <li><strong>Desde 2011</strong><span>atuação clínica</span></li>
-          <li><strong>TCC + Narrativa</strong><span>abordagens terapêuticas</span></li>
-          <li><strong>{SITE.crp}</strong><span>psicólogo clínico</span></li>
-        </ul>
+        <a class="link-sec" href="/psicologo-lgbt-campo-grande/">Sobre o atendimento inclusivo e LGBTQIA+</a>
       </div>
     </div>
   </section>
 
   <!-- ABORDAGEM -->
   <section id="abordagem" class="section">
-    <div class="wrap abordagem">
-      <div>
-        <p class="eyebrow">Abordagem</p>
-        <h2>Terapia cognitivo-comportamental e terapia narrativa</h2>
-      </div>
-      <div>
-        <p class="lead">
-          A TCC é uma abordagem baseada em evidências e tem se mostrado eficaz para uma variedade
-          de questões psicológicas.
-        </p>
-        <p>
-          Trabalhamos juntos para identificar pensamentos disfuncionais e padrões de comportamento,
-          desenvolver estratégias para lidar com eles e promover mudanças positivas na sua vida.
-        </p>
-        <p>
-          A terapia narrativa complementa esse trabalho olhando para as histórias que contamos sobre
-          nós mesmos. Separar a pessoa do problema abre espaço para reescrever essas histórias e
-          reconhecer os próprios recursos, porque quem conhece a sua vida é você.
-        </p>
-        <p>
-          Cada pessoa é única, e o atendimento é personalizado para as suas necessidades, seja
-          você adulto ou adolescente, esteja sozinho, em casal ou em família.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRAJETÓRIA -->
-  <section id="trajetoria" class="section">
-    <div class="wrap trajetoria">
-      <div>
-        <p class="eyebrow">Formação e trajetória</p>
-        <h2>Mais de uma década escutando pessoas, casais e famílias</h2>
-        <p class="trajetoria__link">
-          <a href={SITE.linkedin} target="_blank" rel="noopener">Ver perfil no LinkedIn →</a>
-        </p>
-      </div>
-      <ol class="timeline">
-        {trajetoria.map((t) => (
-          <li>
-            <span class="timeline__periodo">{t.periodo}</span>
-            <h3>{t.titulo}</h3>
-            <p>{t.texto}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <!-- ATENDIMENTO -->
-  <section id="atendimento" class="section section--alt">
     <div class="wrap">
-      <p class="eyebrow">Atendimento</p>
-      <h2 class="title-max">Como posso te ajudar</h2>
-      <div class="cards">
+      <div class="abordagem__topo">
+        <p class="eyebrow">Abordagem</p>
+        <h2>Duas lentes para a mesma história.</h2>
+      </div>
+      <div class="abordagem__cols">
+        <div>
+          <h3>Terapia narrativa</h3>
+          <p>
+            Olha para as histórias que você conta sobre si e que contaram sobre você. Separa a pessoa
+            do problema e abre espaço para reescrever o que já não te representa.
+          </p>
+        </div>
+        <div>
+          <h3>Terapia cognitivo-comportamental</h3>
+          <p>
+            Baseada em evidências, identifica pensamentos e padrões de comportamento que fazem mal e
+            constrói estratégias práticas para o dia a dia.
+          </p>
+        </div>
+        <div>
+          <h3>Escuta e vínculo</h3>
+          <p>
+            Nenhuma técnica funciona sem uma relação de confiança. Os objetivos são definidos em
+            conjunto e revistos pelo caminho, sem promessas e no seu ritmo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATENDIMENTOS -->
+  <section id="atendimento" class="section section--pedra">
+    <div class="wrap atendimentos">
+      <div>
+        <p class="eyebrow">Atendimentos</p>
+        <h2>O que eu atendo.</h2>
+        <p class="atendimentos__nota">
+          Todos os formatos também acontecem online, de segunda a sábado, conforme as normas do CFP
+          e do CRP-14/MS.
+        </p>
+      </div>
+      <ul class="indice">
         {atendimentos.map((a) => (
-          <article class="card">
+          <li class:list={['indice__item', { 'indice__item--link': a.link }]}>
             <h3>{a.link ? <a href={a.link}>{a.titulo}</a> : a.titulo}</h3>
             <p>{a.texto}</p>
-            {a.link && <a class="card__mais" href={a.link} aria-hidden="true" tabindex="-1">Saiba mais →</a>}
-          </article>
+          </li>
         ))}
-      </div>
-
-      <div class="temas">
-        <div>
-          <h3>Desafios que trabalho no consultório</h3>
-          <p>Meu atendimento abrange uma ampla gama de questões emocionais e comportamentais, entre elas:</p>
-        </div>
-        <ul>
-          {temas.map((t) => <li>{t}</li>)}
-        </ul>
-      </div>
-
-      <div class="inclusivo">
-        <h3>Atendimento inclusivo, sem distinção de gênero</h3>
-        <p>
-          Acredito na importância de um atendimento inclusivo e respeitoso. Atendo todas as pessoas,
-          independentemente de identidade de gênero, orientação sexual, idade ou história de vida.
-        </p>
-        <a class="card__mais" href="/psicologo-lgbt-campo-grande/">Conheça o atendimento inclusivo e LGBTQIA+ →</a>
-      </div>
+      </ul>
     </div>
   </section>
 
   <!-- COMO FUNCIONA -->
-  <section id="como-funciona" class="section section--green">
+  <section id="como-funciona" class="section">
     <div class="wrap">
       <p class="eyebrow">Como funciona</p>
-      <h2 class="title-max">Dar o primeiro passo é mais simples do que parece.</h2>
+      <h2 class="passos__titulo">Você não precisa ter todas as respostas para começar.</h2>
       <ol class="passos">
-        {passos.map((s) => (
+        {passos.map((s, i) => (
           <li>
-            <span class="passos__n">{s.n}</span>
+            <span class="passos__n" aria-hidden="true">{i + 1}</span>
             <h3>{s.titulo}</h3>
             <p>{s.texto}</p>
           </li>
         ))}
       </ol>
-      <a class="btn btn--light" href={SITE.agenda} target="_blank" rel="noopener">Ver horários e valores</a>
     </div>
   </section>
 
+  <!-- ARTIGOS -->
+  {posts.length > 0 && (
+    <section class="section section--pedra">
+      <div class="wrap">
+        <h2>Artigos</h2>
+        <ul class="indice">
+          {posts.map((post) => (
+            <li class="indice__item indice__item--link">
+              <h3><a href={`/blog/${post.id}/`}>{post.data.titulo}</a></h3>
+              <p>{post.data.resumo}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
   <!-- FAQ -->
-  <section id="duvidas" class="section">
+  <section id="duvidas" class="section section--tight">
     <div class="wrap faq">
       <div>
-        <p class="eyebrow">Dúvidas frequentes</p>
-        <h2>Perguntas que muita gente faz antes de começar</h2>
+        <p class="eyebrow">Dúvidas</p>
+        <h2>Antes de começar.</h2>
       </div>
       <Faq itens={faq} />
     </div>
   </section>
 
-  <!-- BLOG -->
-  {posts.length > 0 && (
-    <section class="section section--alt">
-      <div class="wrap">
-        <div class="blog-head">
-          <div>
-            <p class="eyebrow">Blog</p>
-            <h2>Textos para pensar com calma</h2>
-          </div>
-          <a href="/blog/">Ver todos os textos →</a>
-        </div>
-        <div class="posts">
-          {posts.map((post) => (
-            <a class="post" href={`/blog/${post.id}/`}>
-              <time datetime={post.data.data.toISOString()}>
-                {post.data.data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' })}
-              </time>
-              <h3>{post.data.titulo}</h3>
-              <p>{post.data.resumo}</p>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- PARCEIROS -->
-  <section class="parceiros" aria-label="Parceiros">
-    <div class="wrap parceiros__inner">
-      <p class="eyebrow">Parceiros</p>
-      <ul>
-        {SITE.parceiros.map((p) => <li>{p}</li>)}
-      </ul>
-    </div>
-  </section>
-
   <!-- CONTATO -->
-  <section id="contato" class="section">
-    <div class="wrap contato">
+  <section id="contato" class="section section--pedra contato">
+    <div class="wrap contato__grid">
       <div>
         <p class="eyebrow">Contato</p>
-        <h2>Seja qual for a sua jornada, estou aqui para apoiar.</h2>
-        <p class="lead">
-          Agende sua consulta e dê o primeiro passo em direção a uma vida mais plena e equilibrada.
-        </p>
-        <div class="hero__ctas">
-          <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
-          <a class="btn btn--ghost" href={whatsappLink()} target="_blank" rel="noopener">WhatsApp</a>
-        </div>
+        <h2>Consultório no Jardim Bela Vista.</h2>
+        <p class="lead">E atendimento online para qualquer cidade.</p>
       </div>
       <dl class="contato__info">
-        <div><dt>WhatsApp / Telefone</dt><dd><a href={whatsappLink()} target="_blank" rel="noopener">{telefoneFormatado()}</a></dd></div>
-        <div>
-          <dt>Agenda online</dt>
-          <dd><a href={SITE.agenda} target="_blank" rel="noopener" class="quebra">{SITE.agenda.replace('https://', '')}</a></dd>
-        </div>
+        <div><dt>Agenda online</dt><dd><a href={SITE.agenda} target="_blank" rel="noopener" class="quebra">{SITE.agenda.replace('https://', '')}</a></dd></div>
+        <div><dt>WhatsApp e telefone</dt><dd><a href={whatsappLink()} target="_blank" rel="noopener">{telefoneFormatado()}</a></dd></div>
         <div><dt>E-mail</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
         <div>
-          <dt>Consultório</dt>
-          <dd>
-            <a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro} · {SITE.cidade}/{SITE.uf}</a>
-          </dd>
+          <dt>Endereço</dt>
+          <dd><a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro}, {SITE.cidade}/{SITE.uf}</a></dd>
         </div>
         <div>
           <dt>Horários</dt>
-          <dd>
-            Presencial: {SITE.horarios.presencial}<br />
-            Online: {SITE.horarios.online}<br />
-            {SITE.horarios.domingo}
-          </dd>
+          <dd>Presencial: {SITE.horarios.presencial.toLowerCase()}<br />Online: {SITE.horarios.online.toLowerCase()}<br />{SITE.horarios.domingo}</dd>
         </div>
         <div><dt>Pagamento</dt><dd>{SITE.pagamento}</dd></div>
+        <div><dt>Parceiros</dt><dd>{SITE.parceiros.join(' e ')}</dd></div>
       </dl>
     </div>
   </section>
+
+  <CtaAgenda />
 </Base>
 
+<script>
+  const raiz = document.querySelector<HTMLElement>('[data-reescrita]');
+  const dados = JSON.parse(document.getElementById('rotulos-data')?.textContent || '[]') as { rotulo: string; reescrita: string }[];
+  const rotulo = raiz?.querySelector<HTMLElement>('[data-rotulo]');
+  const nova = raiz?.querySelector<HTMLElement>('[data-nova]');
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function mostrar(i: number) {
+    if (!raiz || !rotulo || !nova || !dados[i]) return;
+    chips.forEach((c) => c.setAttribute('aria-pressed', String(Number(c.dataset.i) === i)));
+    if (semMovimento) {
+      rotulo.textContent = dados[i].rotulo;
+      nova.textContent = dados[i].reescrita;
+      raiz.classList.add('is-riscado', 'is-reescrito');
+      return;
+    }
+    raiz.classList.remove('is-riscado', 'is-reescrito');
+    window.setTimeout(() => {
+      rotulo.textContent = dados[i].rotulo;
+      nova.textContent = dados[i].reescrita;
+      window.setTimeout(() => raiz.classList.add('is-riscado'), 300);
+      window.setTimeout(() => raiz.classList.add('is-reescrito'), 950);
+    }, 220);
+  }
+
+  chips.forEach((c) => c.addEventListener('click', () => mostrar(Number(c.dataset.i))));
+  if (raiz) {
+    raiz.classList.add('js');
+    mostrar(0);
+  }
+</script>
+
 <style>
-  .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 7vw, 5rem); }
-  .hero__grid { display: grid; gap: 3rem; align-items: center; }
-  .h1-kicker {
-    display: block; font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 1.1rem;
-  }
-  .hero h1 em { font-style: italic; color: var(--accent); }
-  .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 2rem 0 1.5rem; }
-  .hero__meta { font-size: 0.9rem; color: var(--ink-soft); }
-  .hero__art { max-width: 420px; margin-inline: auto; width: 100%; }
-  @media (min-width: 900px) { .hero__grid { grid-template-columns: 1.25fr 1fr; } }
+  /* HERO */
+  .hero { background: var(--oliva); color: var(--marfim); padding: clamp(3rem, 7vw, 6rem) 0 clamp(3.5rem, 7vw, 6rem); }
+  .hero__grid { display: grid; gap: 3rem; }
+  .hero__id { font-family: var(--sans); margin-bottom: 0; }
 
-  .sobre { display: grid; gap: 3rem; align-items: center; }
-  .sobre :global(.sobre__foto) {
-    width: 100%; max-width: 380px; height: auto; margin-inline: auto;
-    border-radius: 200px 200px var(--radius) var(--radius);
-    object-fit: cover; aspect-ratio: 4 / 5;
+  .reescrita { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(1.8rem, 4vw, 2.8rem); }
+  .reescrita__frase {
+    font-family: var(--serif); font-weight: 400; line-height: 0.95; letter-spacing: -0.02em;
+    font-size: clamp(2.7rem, 9.2vw, 7.8rem); margin: 0;
   }
-  .destaques {
-    list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    border-top: 1px solid var(--line); padding-top: 1.5rem;
+  .riscado-linha { display: block; white-space: nowrap; }
+  .riscado { position: relative; display: inline-block; transition: color 0.6s; }
+  .riscado::after {
+    content: ''; position: absolute; left: -0.03em; right: -0.03em; top: 55%;
+    height: 0.045em; min-height: 2px; background: var(--ipe);
+    transform: scaleX(1) rotate(-3deg); transform-origin: left center;
   }
-  .destaques strong { display: block; white-space: nowrap; font-family: var(--serif); font-size: 1.35rem; font-weight: 500; color: var(--green); }
-  .destaques span { font-size: 0.88rem; color: var(--ink-soft); }
-  @media (min-width: 900px) { .sobre { grid-template-columns: 0.85fr 1.15fr; gap: 5rem; } }
+  .js .riscado::after { transform: scaleX(0) rotate(-3deg); transition: transform 0.6s cubic-bezier(0.7, 0, 0.2, 1); }
+  .js.is-riscado .riscado::after { transform: scaleX(1) rotate(-3deg); }
+  .js.is-riscado .riscado { color: #8a8575; }
 
-  .abordagem { display: grid; gap: 1.5rem; }
-  .abordagem .lead { color: var(--ink); margin-bottom: 1.2rem; }
-  .abordagem p { color: var(--ink-soft); }
-  @media (min-width: 900px) { .abordagem { grid-template-columns: 1fr 1.4fr; gap: 5rem; } }
+  .reescrita__nova {
+    font-family: var(--serif); font-style: italic; font-weight: 400; line-height: 1.15;
+    font-size: clamp(1.55rem, 3.4vw, 2.7rem); color: var(--ouro-claro); max-width: 24ch; margin: 1.6rem 0 0; min-height: 2.3em;
+  }
+  .js .reescrita__nova { opacity: 0; transform: translateY(0.25em); transition: opacity 0.6s, transform 0.6s; }
+  .js.is-reescrito .reescrita__nova { opacity: 1; transform: none; }
 
-  #trajetoria { border-top: 1px solid var(--line); }
-  .trajetoria { display: grid; gap: 2rem; }
-  .trajetoria__link a { font-weight: 600; text-decoration: none; }
-  .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
-  .timeline li { position: relative; padding: 0 0 2rem 1.8rem; }
-  .timeline li:last-child { padding-bottom: 0; }
-  .timeline li::before {
-    content: ''; position: absolute; left: -7px; top: 0.35rem;
-    width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent);
+  .rotulos { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.3rem; }
+  .rotulos__legenda { color: #9d968a; font-size: 0.9rem; flex-basis: 100%; margin-bottom: 0.2rem; }
+  .chip {
+    min-height: 44px; padding: 0.4rem 0; cursor: pointer; background: none; border: 0;
+    color: var(--texto-claro); font: italic 400 1.35rem var(--serif);
+    text-decoration: underline; text-decoration-color: rgb(243 239 231 / 0.25); text-underline-offset: 6px; text-decoration-thickness: 1px;
+    transition: color 0.2s, text-decoration-color 0.2s;
   }
-  .timeline__periodo { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; color: var(--green); }
-  .timeline h3 { font-size: 1.2rem; margin: 0.3rem 0 0.4rem; }
-  .timeline p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
-  @media (min-width: 900px) { .trajetoria { grid-template-columns: 1fr 1.6fr; gap: 5rem; } }
+  .chip:hover { color: var(--marfim); text-decoration-color: var(--marfim); }
+  .chip[aria-pressed='true'] { color: var(--ipe); text-decoration-color: var(--ipe); }
 
-  .title-max { max-width: 30ch; }
-  .cards { display: grid; gap: 1.2rem; margin-top: 2.5rem; }
-  .card {
-    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 1.8rem; transition: border-color 0.2s, transform 0.2s;
-  }
-  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .card p { color: var(--ink-soft); margin: 0; }
-  .card h3 a { color: inherit; text-decoration: none; }
-  .card h3 a::after { content: ''; position: absolute; inset: 0; }
-  .card { position: relative; }
-  .card__mais { display: inline-block; margin-top: 0.9rem; font-weight: 600; font-size: 0.92rem; text-decoration: none; }
-  .quebra { word-break: break-all; }
-  @media (min-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1050px) { .cards { grid-template-columns: repeat(4, 1fr); } }
-
-  .temas {
-    display: grid; gap: 1.5rem; margin-top: 4rem; padding: 2.2rem;
-    border-radius: var(--radius); background: var(--green-soft);
-  }
-  .temas ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem 2rem; align-content: start; }
-  .temas li { padding-left: 1.4rem; position: relative; }
-  .temas li::before {
-    content: ''; position: absolute; left: 0; top: 0.62em;
-    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
-  }
-  @media (min-width: 800px) {
-    .temas { grid-template-columns: 1fr 2fr; padding: 3rem; }
-    .temas ul { grid-template-columns: 1fr 1fr; }
+  .hero__lado { display: grid; gap: 1.8rem; align-content: end; }
+  .hero__proposta { font-size: 1.12rem; line-height: 1.7; color: var(--texto-claro); margin: 0; max-width: 30rem; }
+  .hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
+  .hero__sinais { list-style: none; margin: 0; padding: 1.3rem 0 0; border-top: 1px solid var(--linha-escura); display: grid; gap: 0.35rem; font-size: 0.88rem; color: #9d968a; }
+  .hero__sinais li { padding-left: 1.1rem; position: relative; }
+  .hero__sinais li::before { content: ''; position: absolute; left: 0; top: 0.75em; width: 0.55rem; height: 1px; background: var(--ouro); }
+  @media (min-width: 1000px) {
+    .hero__grid { grid-template-columns: minmax(0, 1fr) 21rem; gap: 4rem; align-items: end; }
   }
 
-  .inclusivo { margin-top: 1.2rem; padding: 2rem 2.2rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); }
-  .inclusivo p { margin: 0; color: var(--ink-soft); max-width: 60rem; }
+  /* TEMAS */
+  .temas { background: var(--marfim); padding: clamp(4rem, 8vw, 6rem) 0; border-bottom: 1px solid var(--linha); }
+  .temas__titulo { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 2.5rem; }
+  .temas__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .temas__lista li { padding: 1.5rem 0; border-top: 1px solid var(--linha); }
+  .temas__lista h3 { font-size: 1.45rem; margin-bottom: 0.5rem; }
+  .temas__lista p { margin: 0; color: var(--tinta-suave); font-size: 0.98rem; }
+  @media (min-width: 900px) {
+    .temas__lista { grid-template-columns: repeat(4, 1fr); }
+    .temas__lista li { padding: 0.4rem 2rem 0 0; border-top: 0; border-left: 1px solid var(--linha); padding-left: 1.6rem; }
+    .temas__lista li:first-child { border-left: 0; padding-left: 0; }
+  }
 
-  .section--green { background: var(--green); color: #eef3f8; }
-  .section--green .eyebrow { color: #f0b9a4; }
-  .passos { list-style: none; padding: 0; margin: 2.5rem 0 2.5rem; display: grid; gap: 2.5rem; }
-  .passos li { border-top: 1px solid rgb(255 255 255 / 0.25); padding-top: 1.5rem; }
-  .passos__n { font-family: var(--serif); font-size: 2.6rem; color: #f0b9a4; line-height: 1; display: block; margin-bottom: 1rem; }
-  .passos p { color: #d6e2ee; margin: 0; }
-  .btn--light { background: var(--bg); color: var(--green); }
-  .btn--light:hover { background: #fff; color: var(--green); }
-  @media (min-width: 800px) { .passos { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
+  /* SOBRE */
+  .sobre__grid { display: grid; gap: 3.5rem; align-items: start; }
+  .retrato { margin: 0; max-width: 440px; width: 100%; }
+  .retrato :global(img) {
+    width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+    filter: grayscale(1) sepia(0.18) contrast(1.05) brightness(1.02);
+  }
+  .retrato figcaption { margin-top: 0.8rem; font-size: 0.85rem; color: var(--tinta-suave); }
+  .sobre h2 { font-size: clamp(2.2rem, 4.4vw, 3.5rem); max-width: 16ch; }
+  .sobre h2 em { color: var(--ouro); }
+  .sobre__texto > p { max-width: 36rem; }
+  .sobre__texto > p:not(.lead):not(.eyebrow) { color: var(--tinta-suave); }
+  .trajetoria { list-style: none; margin: 2.5rem 0 2rem; padding: 0; border-top: 1px solid var(--tinta); max-width: 36rem; }
+  .trajetoria li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--linha); font-size: 0.95rem; }
+  .trajetoria span { color: var(--ouro); font-weight: 600; }
+  @media (min-width: 900px) { .sobre__grid { grid-template-columns: 440px 1fr; gap: 7rem; } .retrato { position: sticky; top: 120px; } }
 
+  /* MANIFESTO */
+  .manifesto__grid { display: grid; gap: 2rem 6rem; align-items: end; }
+  .manifesto h2 { font-size: clamp(2.6rem, 6vw, 5rem); line-height: 1; margin: 0; max-width: 12ch; }
+  .manifesto h2 em { color: var(--ipe); }
+  .manifesto p { color: var(--texto-claro); font-size: 1.1rem; max-width: 32rem; }
+  .manifesto .link-sec { color: var(--marfim); }
+  @media (min-width: 900px) { .manifesto__grid { grid-template-columns: 1.3fr 1fr; } }
+
+  /* ABORDAGEM */
+  .abordagem__topo h2 { max-width: 14ch; }
+  .abordagem__cols { display: grid; gap: 2.5rem; margin-top: 3rem; }
+  .abordagem__cols h3 { font-size: 1.6rem; }
+  .abordagem__cols p { color: var(--tinta-suave); margin: 0; }
+  .abordagem__cols > div { border-top: 1px solid var(--tinta); padding-top: 1.4rem; }
+  @media (min-width: 900px) { .abordagem__cols { grid-template-columns: repeat(3, 1fr); gap: 3.5rem; } }
+
+  /* ATENDIMENTOS */
+  .atendimentos { display: grid; gap: 2.5rem; }
+  .atendimentos__nota { color: var(--tinta-suave); max-width: 22rem; font-size: 0.97rem; }
+  .indice { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
+  .indice__item { display: grid; gap: 0.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--linha); position: relative; }
+  .indice__item h3 { font-size: clamp(1.4rem, 2.3vw, 1.85rem); margin: 0; }
+  .indice__item p { margin: 0; color: var(--tinta-suave); font-size: 0.96rem; }
+  .indice__item h3 a { text-decoration: none; }
+  .indice__item h3 a::after { content: ''; position: absolute; inset: 0; }
+  .indice__item--link h3 a { text-decoration: underline; text-decoration-color: var(--ouro); text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .indice__item--link:hover h3 a { color: var(--ouro); }
+  @media (min-width: 900px) {
+    .atendimentos { grid-template-columns: 1fr 1.7fr; gap: 6rem; }
+    .indice__item { grid-template-columns: 1.15fr 1fr; gap: 2rem; align-items: baseline; }
+  }
+
+  /* PASSOS */
+  .passos__titulo { max-width: 18ch; }
+  .passos { list-style: none; margin: 3rem 0 0; padding: 0; display: grid; gap: 2.5rem; }
+  .passos li { border-top: 1px solid var(--tinta); padding-top: 1.4rem; }
+  .passos__n { display: block; font-family: var(--serif); font-style: italic; font-size: 3.2rem; line-height: 1; color: var(--ouro); margin-bottom: 1rem; }
+  .passos h3 { font-size: 1.6rem; }
+  .passos p { color: var(--tinta-suave); margin: 0; }
+  @media (min-width: 800px) { .passos { grid-template-columns: repeat(3, 1fr); gap: 3.5rem; } }
+
+  /* FAQ */
   .faq { display: grid; gap: 2rem; }
-  @media (min-width: 900px) { .faq { grid-template-columns: 1fr 1.6fr; gap: 5rem; } }
+  @media (min-width: 900px) { .faq { grid-template-columns: 1fr 1.7fr; gap: 6rem; } }
 
-  .blog-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; }
-  .posts { display: grid; gap: 1.2rem; margin-top: 2rem; }
-  .post {
-    display: block; padding: 1.8rem; border-radius: var(--radius); background: var(--surface);
-    border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: border-color 0.2s;
+  /* CONTATO */
+  .contato__grid { display: grid; gap: 2.5rem; }
+  .contato h2 { max-width: 13ch; }
+  .contato__info { margin: 0; border-top: 1px solid var(--tinta); }
+  .contato__info > div { padding: 1rem 0; border-bottom: 1px solid var(--linha); display: grid; gap: 0.15rem; }
+  .contato__info dt { font-size: 0.86rem; font-weight: 600; color: var(--ouro); letter-spacing: 0.02em; }
+  .contato__info dd { margin: 0; }
+  .contato__info a { text-decoration-color: var(--ouro); }
+  .quebra { word-break: break-all; }
+  @media (min-width: 900px) {
+    .contato__grid { grid-template-columns: 1fr 1.4fr; gap: 6rem; }
+    .contato__info > div { grid-template-columns: 11rem 1fr; gap: 1.5rem; align-items: baseline; }
   }
-  .post:hover { border-color: var(--accent); color: var(--ink); }
-  .post time { font-size: 0.85rem; color: var(--green); }
-  .post h3 { margin: 0.5rem 0; }
-  .post p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
-  @media (min-width: 800px) { .posts { grid-template-columns: repeat(3, 1fr); } }
-
-  .parceiros { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 2rem 0; }
-  .parceiros__inner { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 3rem; }
-  .parceiros .eyebrow { margin: 0; }
-  .parceiros ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem 3rem; }
-  .parceiros li { font-family: var(--serif); font-size: 1.4rem; color: var(--ink-soft); }
-
-  .contato { display: grid; gap: 3rem; }
-  .contato .hero__ctas { margin-bottom: 0; }
-  .contato__info { margin: 0; display: grid; gap: 1.4rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; }
-  .contato__info dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); font-weight: 600; }
-  .contato__info dd { margin: 0.2rem 0 0; }
-  @media (min-width: 900px) { .contato { grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: center; } }
 </style>
