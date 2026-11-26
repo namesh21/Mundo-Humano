@@ -33,10 +33,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.rascunho)).sort(
 
 <style>
   .lista { list-style: none; padding: 0; margin: 3rem 0 0; max-width: 46rem; }
-  .lista li { border-top: 1px solid var(--line); }
-  .lista a { display: block; padding: 2rem 0; color: var(--ink); text-decoration: none; }
-  .lista a:hover h2 { color: var(--accent); }
-  .lista time { font-size: 0.85rem; color: var(--green); }
+  .lista li { border-top: 1px solid var(--linha); }
+  .lista a { display: block; padding: 2rem 0; color: var(--tinta); text-decoration: none; }
+  .lista a:hover h2 { color: var(--azul); }
+  .lista time { font-size: 0.85rem; color: var(--azul); }
   .lista h2 { font-size: 1.7rem; margin: 0.4rem 0 0.5rem; transition: color 0.2s; }
-  .lista p { color: var(--ink-soft); margin: 0; }
+  .lista p { color: var(--tinta-suave); margin: 0; }
 </style>

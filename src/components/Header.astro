@@ -48,27 +48,27 @@ const links = [
 </script>
 
 <style>
-  .header { position: sticky; top: 0; z-index: 50; background: var(--oliva); color: var(--marfim); border-bottom: 1px solid var(--linha-escura); }
+  .header { position: sticky; top: 0; z-index: 50; background: rgb(247 244 238 / 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); }
   .header__inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-  .marca { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; color: var(--marfim); }
+  .marca { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; color: var(--tinta); }
   .marca__texto { display: grid; line-height: 1.15; }
-  .marca__nome { font-family: var(--serif); font-size: 1.35rem; }
-  .marca__id { font-size: 0.78rem; color: #a59e90; letter-spacing: 0.02em; }
-  .marca:hover .marca__nome { color: var(--ouro-claro); }
+  .marca__nome { font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-size: 1.35rem; }
+  .marca__id { font-size: 0.78rem; color: var(--tinta-suave); }
+  .marca:hover .marca__nome { color: var(--azul); }
 
   .menu summary { list-style: none; cursor: pointer; width: 44px; height: 44px; display: grid; place-content: center; gap: 7px; }
   .menu summary::-webkit-details-marker { display: none; }
-  .menu summary span { display: block; width: 24px; height: 1.5px; background: var(--marfim); transition: transform 0.2s; }
+  .menu summary span { display: block; width: 24px; height: 1.5px; background: var(--tinta); transition: transform 0.2s; }
   .menu[open] summary span:first-child { transform: translateY(4.25px) rotate(45deg); }
   .menu[open] summary span:last-child { transform: translateY(-4.25px) rotate(-45deg); }
   .menu ul {
     list-style: none; margin: 0; padding: 1rem var(--gutter) 2rem;
     position: absolute; left: 0; right: 0; top: 80px;
-    background: var(--oliva); border-bottom: 1px solid var(--linha-escura);
+    background: var(--fundo); border-bottom: 1px solid var(--linha);
   }
   .menu li a:not(.btn) {
-    display: block; padding: 0.85rem 0; color: var(--marfim); text-decoration: none;
-    font-family: var(--serif); font-size: 1.7rem; border-bottom: 1px solid var(--linha-escura);
+    display: block; padding: 0.85rem 0; color: var(--tinta); text-decoration: none;
+    font-family: var(--serif); font-variation-settings: 'SOFT' 100; font-size: 1.6rem; border-bottom: 1px solid var(--linha);
   }
   .menu__cta { margin-top: 1.5rem; }
 
@@ -76,8 +76,8 @@ const links = [
   @media (min-width: 1080px) {
     .menu { display: none; }
     .nav-desktop { display: flex; align-items: center; gap: 2rem; list-style: none; margin: 0; padding: 0; }
-    .nav-desktop a:not(.btn) { color: var(--marfim); text-decoration: none; font-size: 0.93rem; font-weight: 500; }
-    .nav-desktop a:not(.btn):hover { color: var(--ouro-claro); }
-    .nav-desktop .btn { min-height: 44px; padding: 0.6rem 1.3rem; }
+    .nav-desktop a:not(.btn) { color: var(--tinta); text-decoration: none; font-size: 0.93rem; font-weight: 500; }
+    .nav-desktop a:not(.btn):hover { color: var(--azul); }
+    .nav-desktop .btn { min-height: 44px; padding: 0.6rem 1.35rem; }
   }
 </style>
