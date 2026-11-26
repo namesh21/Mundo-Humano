@@ -1,7 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
 import { SITE, whatsappLink, telefoneFormatado } from '../config';
 import { getCollection } from 'astro:content';
+import foto from '../assets/marcel-paulino.webp';
 
 const posts = (await getCollection('blog', ({ data }) => !data.rascunho))
   .sort((a, b) => b.data.data.valueOf() - a.data.data.valueOf())
@@ -10,43 +12,46 @@ const posts = (await getCollection('blog', ({ data }) => !data.rascunho))
 const atendimentos = [
   {
     titulo: 'Psicoterapia individual',
-    texto: 'Para adultos que querem entender o que sentem, o que se repete e o que gostariam de mudar na própria história.',
+    texto: 'Para adultos e adolescentes que querem entender o que sentem, lidar melhor com seus desafios e construir mudanças na própria vida.',
   },
   {
-    titulo: 'Adolescentes',
-    texto: 'Escuta para quem está atravessando as mudanças da adolescência, com orientação aos responsáveis quando necessário.',
+    titulo: 'Terapia de casal',
+    texto: 'Um espaço para o casal olhar para a comunicação, os conflitos e os padrões que se repetem na relação, com ajuda de alguém de fora.',
   },
   {
-    titulo: 'Casais',
-    texto: 'Um espaço para o casal falar do que trava a relação: comunicação, conflitos, crises e decisões importantes.',
+    titulo: 'Famílias',
+    texto: 'Atendimento para famílias que querem melhorar a convivência, a comunicação e atravessar juntas momentos difíceis.',
   },
   {
     titulo: 'Atendimento online',
-    texto: 'Sessões por vídeo com o mesmo cuidado do presencial, para quem mora em outra cidade ou tem rotina corrida.',
+    texto: 'Sessões por vídeo de segunda a sábado, com o mesmo cuidado e sigilo do presencial, para quem está em qualquer cidade.',
   },
 ];
 
 const temas = [
-  'Ansiedade e preocupação constante',
-  'Tristeza, desânimo e perda de sentido',
-  'Luto e perdas',
-  'Relacionamentos e família',
-  'Autoestima e insegurança',
-  'Esgotamento e trabalho',
-  'Mudanças e transições de vida',
-  'Questões da maternidade e paternidade',
+  'Ansiedade e transtornos de ansiedade',
+  'Depressão e transtornos do humor',
+  'Estresse e gerenciamento de estresse',
+  'Fobias e medos',
+  'Relacionamentos e comunicação',
+  'Autoestima e autoaceitação',
+  'Hábitos e vícios',
 ];
 
 const passos = [
-  { n: '01', titulo: 'Primeiro contato', texto: 'Você manda uma mensagem pelo WhatsApp ou e-mail. Respondo pessoalmente para tirar dúvidas e combinar um horário.' },
-  { n: '02', titulo: 'Sessão inicial', texto: 'Uma conversa para entender o que te traz, explicar como trabalho e ver se faz sentido seguirmos juntos.' },
-  { n: '03', titulo: 'Acompanhamento', texto: 'Sessões semanais de cerca de 50 minutos, presenciais ou online, no ritmo que o processo pede.' },
+  { n: '01', titulo: 'Escolha um horário', texto: 'Pela agenda online você vê os horários disponíveis, os valores e já agenda a sua sessão. Se preferir, chame no WhatsApp.' },
+  { n: '02', titulo: 'Primeira sessão', texto: 'Uma conversa para entender o que te traz, explicar como a terapia funciona e definirmos juntos os objetivos do processo.' },
+  { n: '03', titulo: 'Acompanhamento', texto: 'Sessões presenciais em Campo Grande ou online, no ritmo que o processo pede, com revisão constante dos objetivos.' },
 ];
 
 const faq = [
   {
+    p: 'Como faço para agendar?',
+    r: 'Pela agenda online você vê os horários livres, os valores e agenda direto, sem precisar esperar resposta. Se tiver dúvidas antes, é só chamar no WhatsApp.',
+  },
+  {
     p: 'Preciso estar em crise para começar a terapia?',
-    r: 'Não. Muita gente procura terapia para se conhecer melhor, atravessar uma fase de mudança ou entender padrões que se repetem. Não é preciso ter um motivo "grande o suficiente".',
+    r: 'Não. Muita gente procura terapia para se conhecer melhor, atravessar uma fase de mudança ou entender padrões que se repetem. Você é o especialista da sua vida, e a terapia é uma ferramenta para construir esse caminho.',
   },
   {
     p: 'A terapia online funciona?',
@@ -54,15 +59,11 @@ const faq = [
   },
   {
     p: 'O que eu falar fica entre nós?',
-    r: 'Sim. O sigilo é um dever ético da psicologia, previsto no Código de Ética Profissional. As exceções são raras e previstas em lei, e são sempre conversadas com você.',
+    r: 'Sim. O sigilo é um dever ético do psicólogo, previsto no Código de Ética Profissional. As exceções são raras, previstas em lei, e sempre conversadas com você.',
   },
   {
     p: 'Quanto tempo dura o tratamento?',
-    r: 'Depende de cada pessoa e do que a trouxe. Não existe um número fixo de sessões; vamos avaliando juntos como o processo está caminhando.',
-  },
-  {
-    p: 'Vocês atendem por plano de saúde?',
-    r: 'O atendimento é particular. Emito recibo para que você possa solicitar reembolso ao seu plano, conforme as regras do seu contrato.',
+    r: 'A terapia cognitivo-comportamental costuma trabalhar com objetivos definidos em conjunto, mas a duração varia de pessoa para pessoa. Vamos avaliando juntos como o processo está caminhando.',
   },
 ];
 ---
@@ -71,19 +72,18 @@ const faq = [
   <section class="hero">
     <div class="wrap hero__grid">
       <div>
-        <p class="eyebrow">{SITE.slogan} · {SITE.cidade} e online</p>
-        <h1>Um lugar para falar do que <em>pesa</em> e cuidar do que importa.</h1>
+        <p class="eyebrow">{SITE.slogan} · presencial e online</p>
+        <h1>Você é o <em>especialista</em> da sua vida.</h1>
         <p class="lead">
-          Psicoterapia para adultos, adolescentes e casais. Uma escuta atenta e sem julgamentos
-          para você entender o que sente e encontrar outros caminhos.
+          Um espaço seguro e acolhedor para explorar seus desafios e alcançar seu potencial.
+          Terapia para adultos, adolescentes, casais e famílias, sem julgamentos e sem dizer o
+          que é certo ou errado.
         </p>
         <div class="hero__ctas">
-          <a class="btn btn--primary" href={whatsappLink('Olá! Gostaria de agendar uma primeira conversa.')} target="_blank" rel="noopener">
-            Agendar primeira conversa
-          </a>
-          <a class="btn btn--ghost" href="#como-funciona">Como funciona</a>
+          <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
+          <a class="btn btn--ghost" href={whatsappLink()} target="_blank" rel="noopener">Falar no WhatsApp</a>
         </div>
-        <p class="hero__meta">{SITE.profissional} · Psicóloga · {SITE.crp}</p>
+        <p class="hero__meta">{SITE.profissional} · Psicólogo · {SITE.crp}</p>
       </div>
 
       <div class="hero__art" aria-hidden="true">
@@ -104,36 +104,68 @@ const faq = [
   <!-- SOBRE -->
   <section id="sobre" class="section section--alt">
     <div class="wrap sobre">
-      <div class="sobre__foto" role="img" aria-label="Espaço para a foto da psicóloga">
-        <span>Sua foto aqui</span>
-      </div>
+      <Image
+        src={foto}
+        alt="Marcel Paulino, psicólogo em Campo Grande"
+        class="sobre__foto"
+        widths={[380, 640]}
+        sizes="(min-width: 900px) 380px, 90vw"
+      />
       <div>
-        <p class="eyebrow">Sobre</p>
-        <h2>Olá, eu sou {SITE.profissional}.</h2>
+        <p class="eyebrow">Quem sou eu</p>
+        <h2>Olá, sou {SITE.profissional}.</h2>
         <p>
-          Sou psicóloga clínica ({SITE.crp}) e acredito que cada pessoa carrega um mundo inteiro:
-          sua história, seus vínculos, suas dores e suas possibilidades. Foi daí que nasceu o{' '}
-          <strong>{SITE.marca}</strong> — um espaço para olhar para esse mundo com calma e cuidado.
+          Tenho 45 anos, sou casado e pai de duas meninas, a Lara e a Zoe, e também dos pets
+          Sexta-Feira e Thyka. Minha paixão por ouvir as pessoas é natural desde a adolescência,
+          e isso só se confirmou quando decidi cursar Psicologia.
         </p>
         <p>
-          No consultório, meu trabalho é escutar sem pressa e sem julgamento, ajudando você a dar
-          nome ao que sente e a perceber o que se repete na sua vida. A terapia não traz respostas
-          prontas; ela abre espaço para que as suas próprias respostas apareçam.
+          Deixei para trás três anos de Ciência da Computação e troquei a lógica dos números pela
+          subjetividade humana. Ser psicólogo é o cumprimento do meu propósito.
         </p>
-        <ul class="formacao">
-          <li>Graduação em Psicologia — Instituição</li>
-          <li>Especialização / abordagem clínica — Instituição</li>
-          <li>Formação complementar — Instituição</li>
+        <p>
+          Há mais de 12 anos atuo ajudando jovens, adultos, casais e famílias a se entenderem
+          especialistas de suas vidas. Acredito que a terapia é uma ferramenta de construção do
+          ser, fundamental para uma vida plena, e minha missão é te ajudar nesse processo.
+        </p>
+        <ul class="destaques">
+          <li><strong>12+ anos</strong><span>de atuação clínica</span></li>
+          <li><strong>TCC</strong><span>terapia cognitivo-comportamental</span></li>
+          <li><strong>{SITE.crp}</strong><span>registro profissional</span></li>
         </ul>
       </div>
     </div>
   </section>
 
+  <!-- ABORDAGEM -->
+  <section id="abordagem" class="section">
+    <div class="wrap abordagem">
+      <div>
+        <p class="eyebrow">Abordagem</p>
+        <h2>Terapia cognitivo-comportamental</h2>
+      </div>
+      <div>
+        <p class="lead">
+          A TCC é uma abordagem baseada em evidências e tem se mostrado eficaz para uma variedade
+          de questões psicológicas.
+        </p>
+        <p>
+          Trabalhamos juntos para identificar pensamentos disfuncionais e padrões de comportamento,
+          desenvolver estratégias para lidar com eles e promover mudanças positivas na sua vida.
+        </p>
+        <p>
+          Cada pessoa é única, e o atendimento é personalizado para as suas necessidades, seja
+          você adulto ou adolescente, esteja sozinho, em casal ou em família.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- ATENDIMENTO -->
-  <section id="atendimento" class="section">
+  <section id="atendimento" class="section section--alt">
     <div class="wrap">
       <p class="eyebrow">Atendimento</p>
-      <h2 class="title-max">Modalidades de atendimento</h2>
+      <h2 class="title-max">Como posso te ajudar</h2>
       <div class="cards">
         {atendimentos.map((a) => (
           <article class="card">
@@ -145,12 +177,20 @@ const faq = [
 
       <div class="temas">
         <div>
-          <h3>Quando procurar terapia?</h3>
-          <p>Algumas das questões que costumam chegar ao consultório:</p>
+          <h3>Desafios que trabalho no consultório</h3>
+          <p>Meu atendimento abrange uma ampla gama de questões emocionais e comportamentais, entre elas:</p>
         </div>
         <ul>
           {temas.map((t) => <li>{t}</li>)}
         </ul>
+      </div>
+
+      <div class="inclusivo">
+        <h3>Atendimento inclusivo, sem distinção</h3>
+        <p>
+          Acredito na importância de um atendimento inclusivo e respeitoso. Atendo todas as pessoas,
+          independentemente de identidade de gênero, orientação sexual, idade ou história de vida.
+        </p>
       </div>
     </div>
   </section>
@@ -159,7 +199,7 @@ const faq = [
   <section id="como-funciona" class="section section--green">
     <div class="wrap">
       <p class="eyebrow">Como funciona</p>
-      <h2 class="title-max">Começar é mais simples do que parece.</h2>
+      <h2 class="title-max">Dar o primeiro passo é mais simples do que parece.</h2>
       <ol class="passos">
         {passos.map((s) => (
           <li>
@@ -169,6 +209,7 @@ const faq = [
           </li>
         ))}
       </ol>
+      <a class="btn btn--light" href={SITE.agenda} target="_blank" rel="noopener">Ver horários e valores</a>
     </div>
   </section>
 
@@ -221,20 +262,31 @@ const faq = [
     <div class="wrap contato">
       <div>
         <p class="eyebrow">Contato</p>
-        <h2>Vamos conversar?</h2>
+        <h2>Seja qual for a sua jornada, estou aqui para apoiar.</h2>
         <p class="lead">
-          Mande uma mensagem para tirar dúvidas ou agendar sua primeira sessão. Respondo
-          pessoalmente, normalmente no mesmo dia.
+          Agende sua consulta e dê o primeiro passo em direção a uma vida mais plena e equilibrada.
         </p>
-        <a class="btn btn--primary" href={whatsappLink('Olá! Gostaria de agendar uma primeira conversa.')} target="_blank" rel="noopener">
-          Chamar no WhatsApp
-        </a>
+        <div class="hero__ctas">
+          <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
+          <a class="btn btn--ghost" href={whatsappLink()} target="_blank" rel="noopener">WhatsApp</a>
+        </div>
       </div>
       <dl class="contato__info">
-        <div><dt>WhatsApp</dt><dd><a href={whatsappLink()} target="_blank" rel="noopener">{telefoneFormatado()}</a></dd></div>
-        <div><dt>E-mail</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
-        <div><dt>Consultório</dt><dd>{SITE.endereco}<br />{SITE.cidade}/{SITE.uf}</dd></div>
-        <div><dt>Horários</dt><dd>{SITE.horario}</dd></div>
+        <div><dt>WhatsApp / Telefone</dt><dd><a href={whatsappLink()} target="_blank" rel="noopener">{telefoneFormatado()}</a></dd></div>
+        <div>
+          <dt>Consultório</dt>
+          <dd>
+            <a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro} · {SITE.cidade}/{SITE.uf}</a>
+          </dd>
+        </div>
+        <div>
+          <dt>Horários</dt>
+          <dd>
+            Presencial: {SITE.horarios.presencial}<br />
+            Online: {SITE.horarios.online}<br />
+            {SITE.horarios.domingo}
+          </dd>
+        </div>
       </dl>
     </div>
   </section>
@@ -250,15 +302,24 @@ const faq = [
   @media (min-width: 900px) { .hero__grid { grid-template-columns: 1.25fr 1fr; } }
 
   .sobre { display: grid; gap: 3rem; align-items: center; }
-  .sobre__foto {
-    aspect-ratio: 4 / 5; border-radius: 200px 200px var(--radius) var(--radius);
-    background: linear-gradient(160deg, #d8c9b3, #c4ad8f);
-    display: grid; place-items: center; color: #6e5f4d; font-size: 0.9rem;
-    max-width: 380px; width: 100%; margin-inline: auto;
+  .sobre :global(.sobre__foto) {
+    width: 100%; max-width: 380px; height: auto; margin-inline: auto;
+    border-radius: 200px 200px var(--radius) var(--radius);
+    object-fit: cover; aspect-ratio: 4 / 5;
   }
-  .formacao { list-style: none; padding: 0; margin: 1.5rem 0 0; border-top: 1px solid var(--line); }
-  .formacao li { padding: 0.7rem 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; color: var(--ink-soft); }
+  .destaques {
+    list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    border-top: 1px solid var(--line); padding-top: 1.5rem;
+  }
+  .destaques strong { display: block; font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: var(--green); }
+  .destaques span { font-size: 0.88rem; color: var(--ink-soft); }
   @media (min-width: 900px) { .sobre { grid-template-columns: 0.85fr 1.15fr; gap: 5rem; } }
+
+  .abordagem { display: grid; gap: 1.5rem; }
+  .abordagem .lead { color: var(--ink); margin-bottom: 1.2rem; }
+  .abordagem p { color: var(--ink-soft); }
+  @media (min-width: 900px) { .abordagem { grid-template-columns: 1fr 1.4fr; gap: 5rem; } }
 
   .title-max { max-width: 30ch; }
   .cards { display: grid; gap: 1.2rem; margin-top: 2.5rem; }
@@ -275,7 +336,7 @@ const faq = [
     display: grid; gap: 1.5rem; margin-top: 4rem; padding: 2.2rem;
     border-radius: var(--radius); background: var(--green-soft);
   }
-  .temas ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem 2rem; }
+  .temas ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem 2rem; align-content: start; }
   .temas li { padding-left: 1.4rem; position: relative; }
   .temas li::before {
     content: ''; position: absolute; left: 0; top: 0.62em;
@@ -286,12 +347,17 @@ const faq = [
     .temas ul { grid-template-columns: 1fr 1fr; }
   }
 
+  .inclusivo { margin-top: 1.2rem; padding: 2rem 2.2rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); }
+  .inclusivo p { margin: 0; color: var(--ink-soft); max-width: 60rem; }
+
   .section--green { background: var(--green); color: #eef1ec; }
   .section--green .eyebrow { color: #f0b9a4; }
-  .passos { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 2.5rem; counter-reset: none; }
+  .passos { list-style: none; padding: 0; margin: 2.5rem 0 2.5rem; display: grid; gap: 2.5rem; }
   .passos li { border-top: 1px solid rgb(255 255 255 / 0.25); padding-top: 1.5rem; }
   .passos__n { font-family: var(--serif); font-size: 2.6rem; color: #f0b9a4; line-height: 1; display: block; margin-bottom: 1rem; }
   .passos p { color: #d4dcd5; margin: 0; }
+  .btn--light { background: var(--bg); color: var(--green); }
+  .btn--light:hover { background: #fff; color: var(--green); }
   @media (min-width: 800px) { .passos { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
 
   .faq { display: grid; gap: 2rem; }
@@ -322,7 +388,7 @@ const faq = [
   @media (min-width: 800px) { .posts { grid-template-columns: repeat(3, 1fr); } }
 
   .contato { display: grid; gap: 3rem; }
-  .contato .lead { margin-bottom: 1.8rem; }
+  .contato .hero__ctas { margin-bottom: 0; }
   .contato__info { margin: 0; display: grid; gap: 1.4rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; }
   .contato__info dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); font-weight: 600; }
   .contato__info dd { margin: 0.2rem 0 0; }

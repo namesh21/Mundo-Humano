@@ -1,6 +1,8 @@
 # Mundo Humano
 
-Site institucional para psicóloga/consultório de psicologia, feito com [Astro](https://astro.build).
+Site do psicólogo Marcel Paulino (Campo Grande/MS), feito com [Astro](https://astro.build). Conteúdo migrado do antigo Google Sites em www.mundohumano.com.br.
+
+> **Pendente:** preencher o número do CRP em `src/config.ts` (obrigatório pelo CFP).
 
 ## Rodar localmente
 
@@ -15,13 +17,13 @@ npm run preview  # testa o build
 
 | O quê | Arquivo |
 |---|---|
-| Nome, CRP, WhatsApp, e-mail, endereço, horários | `src/config.ts` |
+| Nome, CRP, WhatsApp, link da agenda, endereço, horários | `src/config.ts` |
 | URL final do site (canonical e sitemap) | `astro.config.mjs` e `public/robots.txt` |
 | Textos da página inicial (atendimentos, temas, FAQ) | `src/pages/index.astro` |
 | Cores e fontes | `src/styles/global.css` |
 | Posts do blog | `src/content/blog/*.md` |
 
-Para um novo post, crie um `.md` em `src/content/blog/` com:
+Os 2 posts de exemplo estão com `rascunho: true` (não aparecem no site). Para um novo post, crie um `.md` em `src/content/blog/` com:
 
 ```md
 ---
@@ -34,8 +36,9 @@ rascunho: false
 
 ## Estrutura
 
-- Página única com âncoras: Sobre, Atendimento, Como funciona, Dúvidas, Contato
-- Blog com content collections
+- Página única com âncoras: Sobre, Abordagem (TCC), Atendimento, Como funciona, Dúvidas, Contato
+- Agendamento via Tua Agenda + WhatsApp
+- Blog com content collections (o link do menu só aparece quando houver post publicado)
 - SEO: canonical, Open Graph, sitemap, robots.txt e dados estruturados (schema.org `ProfessionalService`)
 - Botão flutuante de WhatsApp e aviso de crise (CVV 188 / SAMU 192) no rodapé
 - Sem depoimentos de pacientes nem promessa de resultado, seguindo as orientações do CFP sobre publicidade

@@ -1,6 +1,7 @@
 ---
 titulo: Quando é hora de procurar terapia?
 resumo: Não existe um sofrimento "grande o suficiente". Alguns sinais de que pode ser um bom momento para começar.
+rascunho: true
 data: 2026-11-20
 ---
 

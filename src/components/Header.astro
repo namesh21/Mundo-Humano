@@ -1,11 +1,13 @@
 ---
-import { SITE, whatsappLink } from '../config';
+import { SITE } from '../config';
+import { getCollection } from 'astro:content';
 
+const temPosts = (await getCollection('blog', ({ data }) => !data.rascunho)).length > 0;
 const links = [
   { href: '/#sobre', label: 'Sobre' },
+  { href: '/#abordagem', label: 'Abordagem' },
   { href: '/#atendimento', label: 'Atendimento' },
-  { href: '/#como-funciona', label: 'Como funciona' },
-  { href: '/blog/', label: 'Blog' },
+  ...(temPosts ? [{ href: '/blog/', label: 'Blog' }] : []),
   { href: '/#contato', label: 'Contato' },
 ];
 ---
@@ -22,7 +24,7 @@ const links = [
     <nav aria-label="Principal">
       <ul class="nav-desktop">
         {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-        <li><a class="btn btn--primary" href={whatsappLink()} target="_blank" rel="noopener">Agendar conversa</a></li>
+        <li><a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a></li>
       </ul>
       <details class="menu">
         <summary aria-label="Abrir menu">
@@ -31,7 +33,7 @@ const links = [
         <ul>
           {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
           <li class="menu__cta">
-            <a class="btn btn--primary" href={whatsappLink()} target="_blank" rel="noopener">Agendar conversa</a>
+            <a class="btn btn--primary" href={SITE.agenda} target="_blank" rel="noopener">Agendar consulta</a>
           </li>
         </ul>
       </details>

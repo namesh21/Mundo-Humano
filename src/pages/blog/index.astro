@@ -13,6 +13,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.rascunho)).sort(
       <h1>Textos para pensar com calma</h1>
       <p class="lead">Reflexões sobre saúde emocional, vínculos e o que acontece dentro de uma terapia.</p>
 
+      {posts.length === 0 && <p>Em breve, novos textos por aqui.</p>}
       <ul class="lista">
         {posts.map((post) => (
           <li>

@@ -6,15 +6,16 @@ const ano = new Date().getFullYear();
   <div class="wrap footer__grid">
     <div>
       <p class="footer__brand">{SITE.marca}</p>
-      <p>{SITE.profissional} · Psicóloga · {SITE.crp}</p>
-      <p class="muted">{SITE.endereco} · {SITE.cidade}/{SITE.uf}</p>
+      <p>{SITE.profissional} · Psicólogo · {SITE.crp}</p>
+      <p class="muted">
+        <a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro} · {SITE.cidade}/{SITE.uf}</a>
+      </p>
     </div>
     <div>
       <p class="footer__title">Contato</p>
       <p>
         <a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp {telefoneFormatado()}</a><br />
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
-        <a href={SITE.instagram} target="_blank" rel="noopener">Instagram</a>
+        <a href={SITE.agenda} target="_blank" rel="noopener">Agenda online</a>
       </p>
     </div>
     <div class="footer__notice">
@@ -26,13 +27,14 @@ const ano = new Date().getFullYear();
     </div>
   </div>
   <div class="wrap footer__bottom">
-    <p>© {ano} {SITE.marca}. Todos os direitos reservados.</p>
+    <p>© {ano} {SITE.marca} · {SITE.profissional}. Todos os direitos reservados.</p>
   </div>
 </footer>
 
 <style>
   .footer { background: var(--ink); color: #d9d0c3; padding: 4rem 0 1.5rem; font-size: 0.95rem; }
   .footer a { color: #f3d3c6; }
+  .muted a { color: #a99f92; }
   .footer__grid { display: grid; gap: 2.5rem; }
   .footer__brand { font-family: var(--serif); font-size: 1.6rem; color: #fff; margin-bottom: 0.5rem; }
   .footer__title { color: #fff; font-weight: 600; margin-bottom: 0.6rem; }

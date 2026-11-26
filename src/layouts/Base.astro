@@ -12,7 +12,9 @@ interface Props {
 }
 
 const { title, description = SITE.descricao, type = 'website' } = Astro.props;
-const fullTitle = title ? `${title} | ${SITE.marca}` : `${SITE.marca} — ${SITE.slogan} em ${SITE.cidade}`;
+const fullTitle = title
+  ? `${title} | ${SITE.marca}`
+  : `${SITE.profissional}, psicólogo em ${SITE.cidade}/${SITE.uf} | ${SITE.marca}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 const schema = {
@@ -21,11 +23,10 @@ const schema = {
   name: SITE.marca,
   description: SITE.descricao,
   url: Astro.site?.href,
-  email: SITE.email,
   telephone: `+${SITE.whatsapp}`,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: SITE.endereco,
+    streetAddress: `${SITE.endereco}, ${SITE.bairro}`,
     addressLocality: SITE.cidade,
     addressRegion: SITE.uf,
     addressCountry: 'BR',
@@ -33,10 +34,11 @@ const schema = {
   employee: {
     '@type': 'Person',
     name: SITE.profissional,
-    jobTitle: 'Psicóloga',
+    jobTitle: 'Psicólogo',
     identifier: SITE.crp,
   },
-  sameAs: [SITE.instagram],
+  areaServed: SITE.cidade,
+  hasMap: SITE.mapa,
 };
 ---
 <!doctype html>

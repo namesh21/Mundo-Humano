@@ -1,6 +1,7 @@
 ---
 titulo: O que acontece na primeira sessão de terapia
 resumo: Uma conversa sem roteiro fixo, para entender o que te traz e combinar como vamos trabalhar.
+rascunho: true
 data: 2026-11-10
 ---
 
