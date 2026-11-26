@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.rascunho)).sort(
+  (a, b) => b.data.data.valueOf() - a.data.data.valueOf(),
+);
+---
+<Base title="Blog" description="Textos sobre saúde emocional, relacionamentos e o processo terapêutico.">
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Blog</p>
+      <h1>Textos para pensar com calma</h1>
+      <p class="lead">Reflexões sobre saúde emocional, vínculos e o que acontece dentro de uma terapia.</p>
+
+      <ul class="lista">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}/`}>
+              <time datetime={post.data.data.toISOString()}>
+                {post.data.data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' })}
+              </time>
+              <h2>{post.data.titulo}</h2>
+              <p>{post.data.resumo}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lista { list-style: none; padding: 0; margin: 3rem 0 0; max-width: 46rem; }
+  .lista li { border-top: 1px solid var(--line); }
+  .lista a { display: block; padding: 2rem 0; color: var(--ink); text-decoration: none; }
+  .lista a:hover h2 { color: var(--accent); }
+  .lista time { font-size: 0.85rem; color: var(--green); }
+  .lista h2 { font-size: 1.7rem; margin: 0.4rem 0 0.5rem; transition: color 0.2s; }
+  .lista p { color: var(--ink-soft); margin: 0; }
+</style>

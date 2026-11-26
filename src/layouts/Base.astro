@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { SITE } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  type?: 'website' | 'article';
+}
+
+const { title, description = SITE.descricao, type = 'website' } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.marca}` : `${SITE.marca} — ${SITE.slogan} em ${SITE.cidade}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: SITE.marca,
+  description: SITE.descricao,
+  url: Astro.site?.href,
+  email: SITE.email,
+  telephone: `+${SITE.whatsapp}`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.endereco,
+    addressLocality: SITE.cidade,
+    addressRegion: SITE.uf,
+    addressCountry: 'BR',
+  },
+  employee: {
+    '@type': 'Person',
+    name: SITE.profissional,
+    jobTitle: 'Psicóloga',
+    identifier: SITE.crp,
+  },
+  sameAs: [SITE.instagram],
+};
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#f7f2ea" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={SITE.marca} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+    <Header />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
+  </body>
+</html>
