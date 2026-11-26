@@ -27,6 +27,18 @@ const atendimentos = [
     texto: 'Um acompanhamento focado e de curta duração para momentos de crise: perdas, separações, mudanças bruscas e decisões difíceis.',
   },
   {
+    titulo: 'Grupo terapêutico',
+    texto: 'Grupos conduzidos com técnicas da terapia narrativa, em que as pessoas compartilham experiências e constroem novos caminhos juntas.',
+  },
+  {
+    titulo: 'Orientação vocacional e profissional',
+    texto: 'Para quem está escolhendo um curso, mudando de carreira ou repensando a vida profissional e quer decidir com mais clareza.',
+  },
+  {
+    titulo: 'Avaliação psicológica',
+    texto: 'Aplicação de testes psicológicos e avaliação de candidatos para empresas em processos seletivos, pelo projeto Mundo Humano.',
+  },
+  {
     titulo: 'Atendimento online',
     texto: 'Sessões por vídeo de segunda a sábado, conforme as normas do CFP e do CRP-14/MS, com o mesmo cuidado e sigilo do presencial.',
   },
@@ -40,6 +52,34 @@ const temas = [
   'Relacionamentos e comunicação',
   'Autoestima e autoaceitação',
   'Hábitos e vícios',
+];
+
+const trajetoria = [
+  {
+    periodo: '2011 — hoje',
+    titulo: 'Psicólogo clínico · Consultório particular',
+    texto: 'Psicoterapia individual, de casal e familiar, psicoterapia breve, grupos terapêuticos, orientação vocacional e avaliação psicológica.',
+  },
+  {
+    periodo: '2014 — 2018',
+    titulo: 'Psicólogo clínico · Clínica Logus',
+    texto: 'Psicoterapia breve, terapia cognitivo-comportamental e terapia narrativa com indivíduos, casais e famílias.',
+  },
+  {
+    periodo: '2013 — 2014',
+    titulo: 'Psicólogo educacional · Pestalozzi/MS',
+    texto: 'Integrante da equipe de orientação escolar.',
+  },
+  {
+    periodo: '2012 — 2020',
+    titulo: 'Psicólogo clínico voluntário · Instituto KMC',
+    texto: 'Atendimento a famílias em situação de risco e violência encaminhadas por Fórum, Ministério Público, CREAS, CRAS e Conselho Tutelar, com prática em terapia narrativa individual, de casal, familiar e em grupo.',
+  },
+  {
+    periodo: '2006 — 2011',
+    titulo: 'Graduação em Psicologia · UCDB',
+    texto: 'Universidade Católica Dom Bosco, com ênfase em psicologia clínica.',
+  },
 ];
 
 const passos = [
@@ -123,7 +163,7 @@ const faq = [
         <p class="eyebrow">Quem sou eu</p>
         <h2>Olá, sou {SITE.profissional}.</h2>
         <p>
-          Tenho 45 anos, sou casado e pai de duas meninas, a Lara e a Zoe, e também dos pets
+          Sou casado e pai de duas meninas, a Lara e a Zoe, e também dos pets
           Sexta-Feira e Thyka. Minha paixão por ouvir as pessoas é natural desde a adolescência,
           e isso só se confirmou quando decidi cursar Psicologia.
         </p>
@@ -132,12 +172,12 @@ const faq = [
           subjetividade humana. Ser psicólogo é o cumprimento do meu propósito.
         </p>
         <p>
-          Há mais de 12 anos atuo ajudando jovens, adultos, casais e famílias a se entenderem
+          Formado em Psicologia pela UCDB, atuo como psicólogo clínico desde 2011, ajudando jovens, adultos, casais e famílias a se entenderem
           especialistas de suas vidas. Acredito que a terapia é uma ferramenta de construção do
           ser, fundamental para uma vida plena, e minha missão é te ajudar nesse processo.
         </p>
         <ul class="destaques">
-          <li><strong>12+ anos</strong><span>de atuação clínica</span></li>
+          <li><strong>Desde 2011</strong><span>atuação clínica</span></li>
           <li><strong>TCC + Narrativa</strong><span>abordagens terapêuticas</span></li>
           <li><strong>{SITE.crp}</strong><span>psicólogo clínico</span></li>
         </ul>
@@ -171,6 +211,28 @@ const faq = [
           você adulto ou adolescente, esteja sozinho, em casal ou em família.
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- TRAJETÓRIA -->
+  <section id="trajetoria" class="section">
+    <div class="wrap trajetoria">
+      <div>
+        <p class="eyebrow">Formação e trajetória</p>
+        <h2>Mais de uma década escutando pessoas, casais e famílias</h2>
+        <p class="trajetoria__link">
+          <a href={SITE.linkedin} target="_blank" rel="noopener">Ver perfil no LinkedIn →</a>
+        </p>
+      </div>
+      <ol class="timeline">
+        {trajetoria.map((t) => (
+          <li>
+            <span class="timeline__periodo">{t.periodo}</span>
+            <h3>{t.titulo}</h3>
+            <p>{t.texto}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
@@ -296,6 +358,7 @@ const faq = [
       </div>
       <dl class="contato__info">
         <div><dt>WhatsApp / Telefone</dt><dd><a href={whatsappLink()} target="_blank" rel="noopener">{telefoneFormatado()}</a></dd></div>
+        <div><dt>E-mail</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
         <div>
           <dt>Consultório</dt>
           <dd>
@@ -345,6 +408,21 @@ const faq = [
   .abordagem p { color: var(--ink-soft); }
   @media (min-width: 900px) { .abordagem { grid-template-columns: 1fr 1.4fr; gap: 5rem; } }
 
+  #trajetoria { border-top: 1px solid var(--line); }
+  .trajetoria { display: grid; gap: 2rem; }
+  .trajetoria__link a { font-weight: 600; text-decoration: none; }
+  .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+  .timeline li { position: relative; padding: 0 0 2rem 1.8rem; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: ''; position: absolute; left: -7px; top: 0.35rem;
+    width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent);
+  }
+  .timeline__periodo { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; color: var(--green); }
+  .timeline h3 { font-size: 1.2rem; margin: 0.3rem 0 0.4rem; }
+  .timeline p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
+  @media (min-width: 900px) { .trajetoria { grid-template-columns: 1fr 1.6fr; gap: 5rem; } }
+
   .title-max { max-width: 30ch; }
   .cards { display: grid; gap: 1.2rem; margin-top: 2.5rem; }
   .card {
@@ -354,7 +432,7 @@ const faq = [
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .card p { color: var(--ink-soft); margin: 0; }
   @media (min-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1050px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1050px) { .cards { grid-template-columns: repeat(4, 1fr); } }
 
   .temas {
     display: grid; gap: 1.5rem; margin-top: 4rem; padding: 2.2rem;

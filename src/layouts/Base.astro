@@ -37,7 +37,11 @@ const schema = {
     name: SITE.profissional,
     jobTitle: 'Psicólogo Clínico',
     identifier: SITE.crp,
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidade Católica Dom Bosco' },
+    sameAs: [SITE.linkedin],
   },
+  email: SITE.email,
+  sameAs: [SITE.linkedin],
   areaServed: SITE.cidade,
   hasMap: SITE.mapa,
 };

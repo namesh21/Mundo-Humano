@@ -15,7 +15,9 @@ const ano = new Date().getFullYear();
       <p class="footer__title">Contato</p>
       <p>
         <a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp {telefoneFormatado()}</a><br />
-        <a href={SITE.agenda} target="_blank" rel="noopener">Agenda online</a>
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+        <a href={SITE.agenda} target="_blank" rel="noopener">Agenda online</a><br />
+        <a href={SITE.linkedin} target="_blank" rel="noopener">LinkedIn</a>
       </p>
     </div>
     <div class="footer__notice">
