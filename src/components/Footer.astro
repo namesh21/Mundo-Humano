@@ -5,7 +5,7 @@ const ano = new Date().getFullYear();
 <footer class="footer">
   <div class="wrap footer__grid">
     <div>
-      <p class="footer__brand">{SITE.marca}</p>
+      <p class="footer__brand"><img src="/favicon.svg" width="40" height="40" alt="" />{SITE.marca}</p>
       <p>{SITE.profissional} · Psicólogo clínico · {SITE.crp}</p>
       <p class="muted">
         <a href={SITE.mapa} target="_blank" rel="noopener">{SITE.endereco}<br />{SITE.bairro} · {SITE.cidade}/{SITE.uf}</a>
@@ -36,7 +36,7 @@ const ano = new Date().getFullYear();
   .footer a { color: #f3d3c6; }
   .muted a { color: #a99f92; }
   .footer__grid { display: grid; gap: 2.5rem; }
-  .footer__brand { font-family: var(--serif); font-size: 1.6rem; color: #fff; margin-bottom: 0.5rem; }
+  .footer__brand { display: flex; align-items: center; gap: 0.7rem; font-family: var(--serif); font-size: 1.6rem; color: #fff; margin-bottom: 0.8rem; }
   .footer__title { color: #fff; font-weight: 600; margin-bottom: 0.6rem; }
   .muted { color: #a99f92; }
   .footer__notice { border-left: 2px solid var(--accent); padding-left: 1rem; }

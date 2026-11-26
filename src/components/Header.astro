@@ -14,11 +14,8 @@ const links = [
 <header class="header">
   <div class="wrap header__inner">
     <a href="/" class="logo" aria-label={`${SITE.marca} — página inicial`}>
-      <svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="4" />
-        <circle cx="32" cy="32" r="7" fill="#b4573a" />
-      </svg>
-      <span>{SITE.marca}</span>
+      <img src="/favicon.svg" width="44" height="44" alt="" />
+      <span class="logo__text"><span class="logo__mundo">Mundo</span><span class="logo__humano">Humano</span></span>
     </a>
 
     <nav aria-label="Principal">
@@ -56,12 +53,10 @@ const links = [
     border-bottom: 1px solid var(--line);
   }
   .header__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-  .logo {
-    display: flex; align-items: center; gap: 0.6rem;
-    color: var(--green); text-decoration: none;
-    font-family: var(--serif); font-size: 1.35rem; font-weight: 500;
-  }
-  .logo span { color: var(--ink); }
+  .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .logo__text { display: flex; flex-direction: column; line-height: 1; font-family: var(--sans); font-size: 1.15rem; font-weight: 500; letter-spacing: -0.01em; }
+  .logo__mundo { color: var(--logo-blue-text); }
+  .logo__humano { color: var(--ink); margin-top: 0.1rem; }
 
   .menu summary {
     list-style: none; cursor: pointer; width: 44px; height: 44px;

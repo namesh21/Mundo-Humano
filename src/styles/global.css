@@ -10,8 +10,10 @@
   --line: #ddd1bf;
   --accent: #b4573a;      /* terracota */
   --accent-ink: #8f3f27;
-  --green: #3f5a4c;       /* verde-musgo */
-  --green-soft: #dfe6dd;
+  --green: #2f5f8a;       /* azul do logo (escurecido para contraste) */
+  --logo-blue: #5b8bb7;
+  --logo-blue-text: #3d8fc9;
+  --green-soft: #e2ebf3;
 
   --serif: 'Fraunces Variable', Georgia, serif;
   --sans: 'Inter Variable', system-ui, -apple-system, sans-serif;

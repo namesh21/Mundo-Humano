@@ -23,6 +23,7 @@ const schema = {
   name: SITE.marca,
   description: SITE.descricao,
   url: Astro.site?.href,
+  logo: new URL('/favicon.svg', Astro.site).href,
   telephone: `+${SITE.whatsapp}`,
   address: {
     '@type': 'PostalAddress',
